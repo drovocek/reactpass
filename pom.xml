@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example.application</groupId>
     <artifactId>fusioncrmtutorial</artifactId>
@@ -9,8 +9,8 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>8</java.version>
-        <vaadin.version>19.0.8</vaadin.version>
+        <java.version>15</java.version>
+        <vaadin.version>19.0.6</vaadin.version>
     </properties>
 
     <parent>
@@ -144,6 +144,11 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -199,7 +204,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                             <productionMode>true</productionMode>
+                            <productionMode>true</productionMode>
                             <pnpmEnable>false</pnpmEnable>
                         </configuration>
                     </plugin>

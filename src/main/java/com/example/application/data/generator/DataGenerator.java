@@ -31,7 +31,7 @@ public class DataGenerator {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
             if (contactRepository.count() != 0L) {
-                logger.info("Using existing database");
+                logger.info("\n<<< Using existing database >>>");
                 return;
             }
             int seed = 123;

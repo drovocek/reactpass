@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>15</java.version>
+        <java.version>11</java.version>
         <vaadin.version>19.0.7</vaadin.version>
     </properties>
 
@@ -224,14 +224,23 @@
                             <pnpmEnable>false</pnpmEnable>
                         </configuration>
                     </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                        <configuration>-->
+<!--                            <source>15</source>-->
+<!--                            <target>15</target>-->
+<!--&lt;!&ndash;                            <compilerArgs>&#45;&#45;enable-preview</compilerArgs>&ndash;&gt;-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
                 </plugins>
             </build>
-<!--            <dependencies>-->
-<!--                <dependency>-->
-<!--                    <groupId>org.postgresql</groupId>-->
-<!--                    <artifactId>postgresql</artifactId>-->
-<!--                </dependency>-->
-<!--            </dependencies>-->
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                </dependency>
+            </dependencies>
         </profile>
 
         <profile>

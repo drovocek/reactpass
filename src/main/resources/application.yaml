@@ -12,3 +12,7 @@ spring:
 vaadin:
   pnpm:
     enable: false
+
+#heroku deploy
+#  mvn clean package -Pproduction
+#  jar target/getpass-1.0-SNAPSHOT.jar -a reactpass

@@ -226,12 +226,12 @@
                     </plugin>
                 </plugins>
             </build>
-            <dependencies>
-                <dependency>
-                    <groupId>org.postgresql</groupId>
-                    <artifactId>postgresql</artifactId>
-                </dependency>
-            </dependencies>
+<!--            <dependencies>-->
+<!--                <dependency>-->
+<!--                    <groupId>org.postgresql</groupId>-->
+<!--                    <artifactId>postgresql</artifactId>-->
+<!--                </dependency>-->
+<!--            </dependencies>-->
         </profile>
 
         <profile>

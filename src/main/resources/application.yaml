@@ -19,4 +19,5 @@ vaadin:
 
 #heroku deploy
 #  mvn clean package -Pproduction
-#  jar target/getpass-1.0-SNAPSHOT.jar -a reactpass
+#  heroku deploy:jar target/getpass-1.0-SNAPSHOT.jar -a reactpass
+#  heroku logs --tail

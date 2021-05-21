@@ -1,6 +1,6 @@
-package com.example.application.data.repository;
+package ru.volkov.getpass.data.repository;
 
-import com.example.application.data.entity.Company;
+import ru.volkov.getpass.data.entity.Company;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

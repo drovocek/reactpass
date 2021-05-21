@@ -4,7 +4,7 @@ import '@vaadin/vaadin-text-field';
 import '@vaadin/vaadin-combo-box';
 import '@vaadin/vaadin-button';
 import { Binder, field } from 'Frontend/../target/flow-frontend/form';
-import ContactModel from 'Frontend/generated/com/example/application/data/entity/ContactModel';
+import ContactModel from 'Frontend/generated/ru/volkov/getpass/data/entity/ContactModel';
 import { listViewStore } from './list-view-store';
 import { crmStore, uiStore } from 'Frontend/stores/app-store';
 

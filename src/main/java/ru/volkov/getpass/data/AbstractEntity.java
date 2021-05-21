@@ -1,4 +1,4 @@
-package com.example.application.data;
+package ru.volkov.getpass.data;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

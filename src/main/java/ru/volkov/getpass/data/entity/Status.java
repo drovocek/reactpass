@@ -1,8 +1,8 @@
-package com.example.application.data.entity;
+package ru.volkov.getpass.data.entity;
 
 import javax.persistence.Entity;
 
-import com.example.application.data.AbstractEntity;
+import ru.volkov.getpass.data.AbstractEntity;
 
 @Entity
 public class Status extends AbstractEntity {

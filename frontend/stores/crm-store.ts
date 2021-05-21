@@ -1,11 +1,11 @@
 import {makeAutoObservable, observable, runInAction} from 'mobx';
 
-import Company from 'Frontend/generated/com/example/application/data/entity/Company';
-import Contact from 'Frontend/generated/com/example/application/data/entity/Contact';
-import Status from 'Frontend/generated/com/example/application/data/entity/Status';
+import Company from 'Frontend/generated/ru/volkov/getpass/data/entity/Company';
+import Contact from 'Frontend/generated/ru/volkov/getpass/data/entity/Contact';
+import Status from 'Frontend/generated/ru/volkov/getpass/data/entity/Status';
 import * as endpoint from 'Frontend/generated/CrmEndpoint';
 import {uiStore} from "Frontend/stores/app-store";
-import CrmDataModel from "Frontend/generated/com/example/application/data/endpoint/CrmEndpoint/CrmDataModel";
+import CrmDataModel from "Frontend/generated/ru/volkov/getpass/data/endpoint/CrmEndpoint/CrmDataModel";
 import {cacheable} from "Frontend/stores/cacheable";
 
 export class CrmStore {

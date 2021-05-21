@@ -1,4 +1,4 @@
-package com.example.application.security;
+package ru.volkov.getpass.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

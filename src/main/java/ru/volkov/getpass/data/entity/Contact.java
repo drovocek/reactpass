@@ -1,4 +1,4 @@
-package com.example.application.data.entity;
+package ru.volkov.getpass.data.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.example.application.data.AbstractEntity;
+import ru.volkov.getpass.data.AbstractEntity;
 
 @Entity
 public class Contact extends AbstractEntity {

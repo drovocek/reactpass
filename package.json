@@ -20,7 +20,7 @@
     "@vaadin/vaadin-confirm-dialog": "2.0.0",
     "@vaadin/vaadin-context-menu": "5.0.0",
     "@vaadin/vaadin-cookie-consent": "2.0.0",
-    "@vaadin/vaadin-core-shrinkwrap": "19.0.6",
+    "@vaadin/vaadin-core-shrinkwrap": "19.0.7",
     "@vaadin/vaadin-crud": "2.0.1",
     "@vaadin/vaadin-custom-field": "2.0.0",
     "@vaadin/vaadin-date-picker": "5.0.0",
@@ -28,7 +28,7 @@
     "@vaadin/vaadin-details": "1.2.0",
     "@vaadin/vaadin-dialog": "2.5.2",
     "@vaadin/vaadin-form-layout": "2.3.0",
-    "@vaadin/vaadin-grid": "6.0.1",
+    "@vaadin/vaadin-grid": "6.0.2",
     "@vaadin/vaadin-grid-pro": "3.0.1",
     "@vaadin/vaadin-icons": "4.3.2",
     "@vaadin/vaadin-item": "3.0.0",
@@ -43,15 +43,16 @@
     "@vaadin/vaadin-radio-button": "1.5.1",
     "@vaadin/vaadin-rich-text-editor": "2.0.0",
     "@vaadin/vaadin-select": "3.0.0",
-    "@vaadin/vaadin-shrinkwrap": "19.0.6",
+    "@vaadin/vaadin-shrinkwrap": "19.0.7",
     "@vaadin/vaadin-split-layout": "4.3.0",
     "@vaadin/vaadin-tabs": "4.0.0",
     "@vaadin/vaadin-text-field": "3.0.2",
     "@vaadin/vaadin-time-picker": "3.0.0",
     "@vaadin/vaadin-upload": "5.0.0",
+    "lit-element": "2.5.1",
+    "lit-html": "1.4.1",
     "lumo-css-framework": "^3.0.11",
-    "mobx": "^6.1.5",
-    "lit-element": "2.3.1"
+    "mobx": "^6.1.5"
   },
   "devDependencies": {
     "@types/validator": "13.1.0",
@@ -66,8 +67,6 @@
     "glob": "7.1.6",
     "html-webpack-plugin": "4.5.1",
     "lit-css-loader": "0.0.4",
-    "lit-element": "^2.4.0",
-    "lit-html": "1.3.0",
     "loader-utils": "2.0.0",
     "style-loader": "^2.0.0",
     "ts-loader": "8.0.12",
@@ -99,7 +98,7 @@
       "@vaadin/vaadin-confirm-dialog": "2.0.0",
       "@vaadin/vaadin-context-menu": "5.0.0",
       "@vaadin/vaadin-cookie-consent": "2.0.0",
-      "@vaadin/vaadin-core-shrinkwrap": "19.0.6",
+      "@vaadin/vaadin-core-shrinkwrap": "19.0.7",
       "@vaadin/vaadin-crud": "2.0.1",
       "@vaadin/vaadin-custom-field": "2.0.0",
       "@vaadin/vaadin-date-picker": "5.0.0",
@@ -107,7 +106,7 @@
       "@vaadin/vaadin-details": "1.2.0",
       "@vaadin/vaadin-dialog": "2.5.2",
       "@vaadin/vaadin-form-layout": "2.3.0",
-      "@vaadin/vaadin-grid": "6.0.1",
+      "@vaadin/vaadin-grid": "6.0.2",
       "@vaadin/vaadin-grid-pro": "3.0.1",
       "@vaadin/vaadin-icons": "4.3.2",
       "@vaadin/vaadin-item": "3.0.0",
@@ -122,13 +121,14 @@
       "@vaadin/vaadin-radio-button": "1.5.1",
       "@vaadin/vaadin-rich-text-editor": "2.0.0",
       "@vaadin/vaadin-select": "3.0.0",
-      "@vaadin/vaadin-shrinkwrap": "19.0.6",
+      "@vaadin/vaadin-shrinkwrap": "19.0.7",
       "@vaadin/vaadin-split-layout": "4.3.0",
       "@vaadin/vaadin-tabs": "4.0.0",
       "@vaadin/vaadin-text-field": "3.0.2",
       "@vaadin/vaadin-time-picker": "3.0.0",
       "@vaadin/vaadin-upload": "5.0.0",
-      "lit-element": "2.3.1"
+      "lit-element": "2.5.1",
+      "lit-html": "1.4.1"
     },
     "devDependencies": {
       "@types/validator": "13.1.0",
@@ -154,10 +154,8 @@
       "workbox-precaching": "5.1.4",
       "workbox-webpack-plugin": "5.1.4",
       "fork-ts-checker-webpack-plugin": "6.2.1",
-      "lit-element": "2.4.0",
-      "construct-style-sheets-polyfill": "2.4.16",
-      "lit-html": "1.3.0"
+      "construct-style-sheets-polyfill": "2.4.16"
     },
-    "hash": "17a6a41eca28f30402bd17d38b741e9d5e889aff3b290a7cd676be06f8f3c15c"
+    "hash": "e2b81fcac5ac92ff684f216921902c443a42ae55c575df3bf247f3c87899b18f"
   }
 }

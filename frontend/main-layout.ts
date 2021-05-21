@@ -18,7 +18,7 @@ export class MainLayout extends Layout {
            <vaadin-app-layout class="h-full w-full">
              <header slot="navbar" class="w-full flex items-center px-m">
                  <vaadin-drawer-toggle></vaadin-drawer-toggle>
-                 <h1 class="text-l m-m">Vaadin CRM</h1>
+                 <h1 class="text-l m-m">Get Pass</h1>
                  <a href="/logout" class="ms-auto" style=${uiStore.offline ? "display: none;" : ""}>Log out</a>
             </header>
         

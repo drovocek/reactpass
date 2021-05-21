@@ -1,11 +1,11 @@
-package com.example.application.data.endpoint;
+package ru.volkov.getpass.data.endpoint;
 
-import com.example.application.data.entity.Company;
-import com.example.application.data.entity.Contact;
-import com.example.application.data.entity.Status;
-import com.example.application.data.repository.CompanyRepository;
-import com.example.application.data.repository.ContactRepository;
-import com.example.application.data.repository.StatusRepository;
+import ru.volkov.getpass.data.entity.Company;
+import ru.volkov.getpass.data.entity.Contact;
+import ru.volkov.getpass.data.entity.Status;
+import ru.volkov.getpass.data.repository.CompanyRepository;
+import ru.volkov.getpass.data.repository.ContactRepository;
+import ru.volkov.getpass.data.repository.StatusRepository;
 import com.vaadin.flow.server.connect.Endpoint;
 
 import java.util.List;

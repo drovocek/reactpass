@@ -1,14 +1,30 @@
-server:
-  port: ${PORT:8080}
+#server:
+#  port: ${PORT:8080}
 logging:
-  level.org.atmosphere: warn
+  level:
+    root: WARN
+    edu.volkov.progressjournal: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) %cyan(%class{50}.%M:%L) - %green(%msg%n)"
 spring:
   mustache:
     check-template-location: false
   jpa:
+    show-sql: true
+#    open-in-view: false
     generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create-drop   #none
+
+#  datasource:
+#    driverClassName: org.postgresql.Driver
+#    initialization-mode: always
+#    platform: postgres
+#    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost}
+#    username: ${SPRING_DATASOURCE_USERNAME:user}
+#    password: ${SPRING_DATASOURCE_PASSWORD:password}
+
+
 
 # To improve the performance during development. 
 # For more information https://vaadin.com/docs/flow/spring/tutorial-spring-configuration.html#special-configuration-parameters
@@ -20,4 +36,5 @@ vaadin:
 #heroku deploy
 #  mvn clean package -Pproduction
 #  heroku deploy:jar target/getpass-1.0-SNAPSHOT.jar -a reactpass
-#  heroku logs --tail
+#  heroku logs --app reactpass
+#  heroku restart --app reactpass

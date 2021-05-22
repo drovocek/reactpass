@@ -1,5 +1,5 @@
-#server:
-#  port: ${PORT:8080}
+server:
+  port: ${PORT}
 logging:
   level:
     root: WARN
@@ -38,3 +38,4 @@ vaadin:
 #  heroku deploy:jar target/getpass-1.0-SNAPSHOT.jar -a reactpass
 #  heroku logs --app reactpass
 #  heroku restart --app reactpass
+#https://www.youtube.com/watch?v=7--PIqUrkYw

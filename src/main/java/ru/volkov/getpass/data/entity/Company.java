@@ -8,8 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import lombok.Getter;
+import lombok.Setter;
 import ru.volkov.getpass.data.AbstractEntity;
 
+@Getter
+@Setter
 @Entity
 public class Company extends AbstractEntity {
     @NotBlank
@@ -18,20 +22,4 @@ public class Company extends AbstractEntity {
     @OneToMany(mappedBy = "company")
     @Nullable
     private List<Contact> employees = new LinkedList<>();
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Contact> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Contact> employees) {
-        this.employees = employees;
-    }
 }

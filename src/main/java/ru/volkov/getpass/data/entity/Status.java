@@ -1,27 +1,21 @@
 package ru.volkov.getpass.data.entity;
 
-import javax.persistence.Entity;
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.volkov.getpass.data.AbstractEntity;
 
+import javax.persistence.Entity;
+
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Status extends AbstractEntity {
+
     private String name;
-
-    public Status() {
-
-    }
 
     public Status(String name) {
         this.name = name;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
 }

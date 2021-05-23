@@ -1,29 +1,23 @@
 package ru.volkov.getpass.data.endpoint;
 
+import com.vaadin.flow.server.connect.Endpoint;
+import lombok.RequiredArgsConstructor;
 import ru.volkov.getpass.data.entity.Company;
 import ru.volkov.getpass.data.entity.Contact;
 import ru.volkov.getpass.data.entity.Status;
 import ru.volkov.getpass.data.repository.CompanyRepository;
 import ru.volkov.getpass.data.repository.ContactRepository;
 import ru.volkov.getpass.data.repository.StatusRepository;
-import com.vaadin.flow.server.connect.Endpoint;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Endpoint
 public class CrmEndpoint {
 
-    private ContactRepository contactRepository;
-    private CompanyRepository companyRepository;
-    private StatusRepository statusRepository;
-
-    public CrmEndpoint(ContactRepository contactRepository, CompanyRepository companyRepository,
-                       StatusRepository statusRepository) {
-        this.contactRepository = contactRepository;
-        this.companyRepository = companyRepository;
-        this.statusRepository = statusRepository;
-
-    }
+    private final ContactRepository contactRepository;
+    private final CompanyRepository companyRepository;
+    private final StatusRepository statusRepository;
 
     public CrmData getCrmData() {
         CrmData crmData = new CrmData();

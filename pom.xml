@@ -6,7 +6,7 @@
     <groupId>ru.volkov.getpass</groupId>
     <artifactId>getpass</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>Project base for Spring Boot and Vaadin Fusion</name>
     <url>http://reactpass.herokuapp.com/</url>
@@ -201,6 +201,15 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -224,17 +233,10 @@
                         </executions>
                         <configuration>
                             <productionMode>true</productionMode>
-                            <pnpmEnable>false</pnpmEnable>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
-            <dependencies>
-                <dependency>
-                    <groupId>org.postgresql</groupId>
-                    <artifactId>postgresql</artifactId>
-                </dependency>
-            </dependencies>
         </profile>
 
         <profile>

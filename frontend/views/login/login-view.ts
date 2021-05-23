@@ -16,7 +16,7 @@ export class LoginView extends View {
 
     render() {
         return html`
-         <h1>Vaadin CRM</h1>
+         <h1>Get Pass</h1>
             <vaadin-login-form
              no-forgot-password
              @login="${this.login}"

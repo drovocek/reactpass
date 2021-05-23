@@ -1,9 +1,9 @@
 server:
-  port: ${PORT}
+  port: ${PORT:8080}
 logging:
   level:
     root: WARN
-    edu.volkov.progressjournal: DEBUG
+    ru.volkov.getpass: DEBUG
   pattern:
     console: "%d{HH:mm:ss.SSS} %highlight(%-5level) %cyan(%class{50}.%M:%L) - %green(%msg%n)"
 spring:

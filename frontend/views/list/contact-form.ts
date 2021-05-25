@@ -27,16 +27,19 @@ export class ContactForm extends View {
             return html`
        <vaadin-text-field
          label="First name"
+         clear-button-visible
          ?disabled="${uiStore.offline}"
          ...="${field(model.firstName)}"
        ></vaadin-text-field>
        <vaadin-text-field
          label="Last name"
+         clear-button-visible
          ?disabled="${uiStore.offline}"
          ...="${field(model.lastName)}"
        ></vaadin-text-field>
        <vaadin-text-field
          label="Email"
+         clear-button-visible
          ?disabled="${uiStore.offline}"
          ...="${field(model.email)}"
        ></vaadin-text-field>

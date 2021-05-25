@@ -34,6 +34,11 @@ export const views: ViewRoute[] = [
     title: 'Contacts',
   },
   {
+    path: 'users',
+    component: 'user-view',
+    title: 'Users',
+  },
+  {
     path: 'dashboard',
     component: 'dashboard-view',
     title: 'Dashboard',

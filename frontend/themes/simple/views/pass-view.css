@@ -1,0 +1,19 @@
+pass-view {
+  display: block;
+}
+
+pass-view pass-form {
+  flex-shrink: 0;
+  width: 25em;
+}
+
+@media (max-width: 700px) {
+  pass-view.editing .toolbar,
+  pass-view.editing .grid {
+    display: none;
+  }
+
+  pass-view.editing pass-form {
+    width: 100%;
+  }
+}

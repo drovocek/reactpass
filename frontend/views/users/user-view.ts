@@ -4,7 +4,7 @@ import "@vaadin/vaadin-text-field";
 import "@vaadin/vaadin-button";
 import "@vaadin/vaadin-grid";
 import "@vaadin/vaadin-grid/src/vaadin-grid-column";
-import './contact-form';
+import './user-form';
 import {uiStore} from 'Frontend/stores/app-store';
 import "@vaadin/vaadin-notification";
 import {userFilterStore} from "Frontend/views/users/user-filter-store";

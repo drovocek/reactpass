@@ -19,6 +19,7 @@ public class UserEndpoint {
     public UserData getUsersData() {
         UserData userData = new UserData();
         userData.users = userRepository.findAll();
+        userData.users.forEach(System.out::println);
         return userData;
     }
 

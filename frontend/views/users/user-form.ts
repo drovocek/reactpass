@@ -3,10 +3,10 @@ import {View} from '../view';
 import '@vaadin/vaadin-text-field';
 import '@vaadin/vaadin-combo-box';
 import '@vaadin/vaadin-button';
-import { Binder, field } from 'Frontend/../target/flow-frontend/form';
-import ContactModel from 'Frontend/generated/ru/volkov/getpass/data/entity/ContactModel';
-import {listViewStore, userFilterStore} from './user-filter-store';
-import { crmStore, uiStore } from 'Frontend/stores/app-store';
+import {Binder, field} from 'Frontend/../target/flow-frontend/form';
+import {userFilterStore} from './user-filter-store';
+import {uiStore} from 'Frontend/stores/app-store';
+import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
 
 @customElement('user-form')
 export class UserForm extends View {
@@ -23,8 +23,8 @@ export class UserForm extends View {
     }
 
     render() {
-            const { model } = this.binder;
-            return html`
+        const {model} = this.binder;
+        return html`
        <vaadin-text-field
          label="Full name"
          ?disabled="${uiStore.offline}"
@@ -40,7 +40,7 @@ export class UserForm extends View {
          </vaadin-button>
          <vaadin-button
            theme="error"
-           @click="${listViewStore.delete}"
+           @click="${userFilterStore.delete}"
            ?disabled=${!this.binder.value.id || uiStore.offline}
          >
            Delete
@@ -53,7 +53,7 @@ export class UserForm extends View {
     }
 
     async save() {
-        await this.binder.submitTo(listViewStore.save);
+        await this.binder.submitTo(userFilterStore.save);
         this.binder.clear();
     }
 }

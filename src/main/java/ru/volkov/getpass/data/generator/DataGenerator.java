@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import ru.volkov.getpass.data.entity.Company;
 import ru.volkov.getpass.data.entity.Contact;
 import ru.volkov.getpass.data.entity.Status;
+import ru.volkov.getpass.data.entity.User;
 import ru.volkov.getpass.data.repository.CompanyRepository;
 import ru.volkov.getpass.data.repository.ContactRepository;
 import ru.volkov.getpass.data.repository.StatusRepository;
@@ -20,13 +21,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
+import ru.volkov.getpass.data.repository.UserRepository;
 
 @SpringComponent
 public class DataGenerator {
 
     @Bean
     public CommandLineRunner loadData(ContactRepository contactRepository, CompanyRepository companyRepository,
-                                      StatusRepository statusRepository) {
+                                      StatusRepository statusRepository, UserRepository userRepository) {
 
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
@@ -61,6 +63,7 @@ public class DataGenerator {
             }).collect(Collectors.toList());
 
             contactRepository.saveAll(contacts);
+            userRepository.saveAll(List.of(new User("Vasia"),new User("Petya")));
 
             logger.info("Generated demo data");
         };

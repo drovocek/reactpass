@@ -1,7 +1,7 @@
-import Contact from 'Frontend/generated/ru/volkov/getpass/data/entity/Contact';
-import ContactModel from 'Frontend/generated/ru/volkov/getpass/data/entity/ContactModel';
-import { crmStore } from 'Frontend/stores/app-store';
-import { makeAutoObservable, observable } from 'mobx';
+import {makeAutoObservable, observable} from 'mobx';
+import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
+import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
+import {usersStore} from 'Frontend/stores/app-store';
 
 class UserFilterStore {
     filterText = '';
@@ -10,8 +10,8 @@ class UserFilterStore {
     constructor() {
         makeAutoObservable(
             this,
-            { selected: observable.ref },
-            { autoBind: true }
+            {selected: observable.ref},
+            {autoBind: true}
         );
     }
 
@@ -21,7 +21,7 @@ class UserFilterStore {
 
     get filtered() {
         const filter = new RegExp(this.filterText, 'i');
-        const contacts = crmStore.contacts;
+        const users = usersStore.users;
         return users.filter((user) =>
             filter.test(`${user.fullName}`)
         );
@@ -40,13 +40,13 @@ class UserFilterStore {
     }
 
     async save(user: User) {
-        await userStore.saveContact(user);
+        await usersStore.save(user);
         this.cancelEdit();
     }
 
     async delete() {
         if (this.selected) {
-            await userStore.delete(this.selected);
+            await usersStore.delete(this.selected);
             this.cancelEdit();
         }
     }

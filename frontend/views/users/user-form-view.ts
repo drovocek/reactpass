@@ -9,7 +9,7 @@ import {uiStore} from 'Frontend/stores/app-store';
 import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
 
 @customElement('user-form')
-export class UserForm extends View {
+export class UserFormView extends View {
 
     protected binder = new Binder(this, UserModel);
 

@@ -1,4 +1,5 @@
 import {uiStore} from "Frontend/stores/app-store";
+import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
 
 export class GeneralRootStore {
 
@@ -52,4 +53,12 @@ export class GeneralRootStore {
     private deleteLocal(deleted: any) {
         this.gridData = this.gridData.filter((c) => c.id !== deleted.id);
     }
+}
+
+export interface EntityStore<T extends AbstractEntity> {
+    selected: T | null;
+
+    save(entity: T): Promise<T>;
+
+    cancelEdit(): void;
 }

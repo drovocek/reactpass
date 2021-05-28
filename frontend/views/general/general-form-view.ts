@@ -3,27 +3,24 @@ import {View} from '../view';
 import '@vaadin/vaadin-text-field';
 import '@vaadin/vaadin-combo-box';
 import '@vaadin/vaadin-button';
-import {Binder, field} from 'Frontend/../target/flow-frontend/form';
+import {Binder} from 'Frontend/../target/flow-frontend/form';
 import {userFilterStore} from './user-filter-store';
 import {uiStore} from 'Frontend/stores/app-store';
-import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
-import {ModelConstructor} from "./Models";
+import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
+import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
+import {EntityStore} from "Frontend/views/general/general-root-store";
 
-export class GeneralFormView<T> extends View {
+export class GeneralFormView<T extends AbstractEntity> extends View {
 
-    protected binder = new Binder(this, this.model);
+    protected binder: Binder<T, AbstractModel<T>>;
 
-    getInstance(): T {
-        return new this.model();
-    }
-
-
-    constructor(private model: ModelConstructor) {
+    constructor(private model: ModelConstructor<T, AbstractModel<T>>,
+                private store: EntityStore<T>) {
         super();
         this.binder = new Binder(this, model);
         this.autorun(() =>
             this.binder.read(
-                userFilterStore.selected || UserModel.createEmptyValue()
+                store.selected || model.createEmptyValue()
             )
         );
     }
@@ -31,11 +28,6 @@ export class GeneralFormView<T> extends View {
     render() {
         const {model} = this.binder;
         return html`
-       <vaadin-text-field
-         label="Full name"
-         ?disabled="${uiStore.offline}"
-         ...="${field(model.fullName)}"
-       ></vaadin-text-field>
        <div class="buttons se-s">
          <vaadin-button
            theme="primary"
@@ -51,7 +43,7 @@ export class GeneralFormView<T> extends View {
          >
            Delete
          </vaadin-button>
-         <vaadin-button theme="tertiary" @click="${userFilterStore.cancelEdit}">
+         <vaadin-button theme="tertiary" @click="${this.store.cancelEdit}">
            Cancel
          </vaadin-button>
        </div>
@@ -59,7 +51,7 @@ export class GeneralFormView<T> extends View {
     }
 
     async save() {
-        await this.binder.submitTo(userFilterStore.save);
+        await this.binder.submitTo(this.store.save);
         this.binder.clear();
     }
 }

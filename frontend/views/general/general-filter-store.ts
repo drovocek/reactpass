@@ -1,16 +1,15 @@
 import {makeAutoObservable, observable} from "mobx";
 import {GeneralRootStore} from "Frontend/views/general/general-root-store";
-import {EntityFilterStore} from "entity-filter-store.ts";
 import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
+import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
 
-export class GeneralFilterStore<T> implements EntityFilterStore<T> {
+export abstract class GeneralFilterStore<T> implements EntityFilterStore<T> {
 
-    filterText: string = '';
-    selected: T | null = null;
-    generalRootStore: GeneralRootStore;
-    entityModel: any;
+    public filterText: string = '';
+    public selected: T | null = null;
 
-    constructor(generalRootStore: GeneralRootStore, entityModel: ModelConstructor<T, AbstractModel<T>>) {
+    protected constructor(protected generalRootStore: GeneralRootStore<T>,
+                          protected entityModel: ModelConstructor<T, AbstractModel<T>>) {
         this.generalRootStore = generalRootStore;
         this.entityModel = entityModel;
         makeAutoObservable(

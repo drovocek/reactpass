@@ -1,23 +1,12 @@
-import {makeAutoObservable, observable} from 'mobx';
 import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
 import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
 import {usersStore} from 'Frontend/stores/app-store';
-import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
+import {GeneralFilterStore} from "Frontend/views/general/general-filter-store";
 
-class UserFilterStore implements EntityFilterStore<User> {
-    filterText = '';
-    selected: User | null = null;
+class UserFilterStore extends GeneralFilterStore<User> {
 
     constructor() {
-        makeAutoObservable(
-            this,
-            {selected: observable.ref},
-            {autoBind: true}
-        );
-    }
-
-    updateFilter(filterText: string) {
-        this.filterText = filterText;
+        super(usersStore, UserModel);
     }
 
     get filtered() {
@@ -26,30 +15,6 @@ class UserFilterStore implements EntityFilterStore<User> {
         return users.filter((user) =>
             filter.test(`${user.fullName}`)
         );
-    }
-
-    setSelected(user: User | null) {
-        this.selected = user;
-    }
-
-    editNew() {
-        this.selected = UserModel.createEmptyValue();
-    }
-
-    cancelEdit() {
-        this.selected = null;
-    }
-
-    async save(user: User) {
-        await usersStore.save(user);
-        this.cancelEdit();
-    }
-
-    async delete() {
-        if (this.selected) {
-            await usersStore.delete(this.selected);
-            this.cancelEdit();
-        }
     }
 }
 

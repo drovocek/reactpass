@@ -2,12 +2,12 @@ import {View} from "Frontend/views/view";
 import {html, TemplateResult} from "lit-element";
 import {userFilterStore} from "Frontend/views/users/user-filter-store";
 import {uiStore} from "Frontend/stores/app-store";
-import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
 import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
+import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
 
-export abstract class GeneralRootView<T> extends View {
+export abstract class GeneralRootView<T extends AbstractEntity> extends View {
 
-    protected constructor(protected entityFilterStore: EntityFilterStore<User>) {
+    protected constructor(protected entityFilterStore: EntityFilterStore<T>) {
         super();
         this.entityFilterStore = entityFilterStore;
     }

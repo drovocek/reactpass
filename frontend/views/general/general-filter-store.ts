@@ -2,16 +2,15 @@ import {makeAutoObservable, observable} from "mobx";
 import {GeneralRootStore} from "Frontend/views/general/general-root-store";
 import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
 import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
+import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
 
-export abstract class GeneralFilterStore<T> implements EntityFilterStore<T> {
+export class GeneralFilterStore<T extends AbstractEntity> implements EntityFilterStore<T> {
 
-    public filterText: string = '';
-    public selected: T | null = null;
+    filterText: string = '';
+    selected: T | null = null;
 
     protected constructor(protected generalRootStore: GeneralRootStore<T>,
                           protected entityModel: ModelConstructor<T, AbstractModel<T>>) {
-        this.generalRootStore = generalRootStore;
-        this.entityModel = entityModel;
         makeAutoObservable(
             this,
             {selected: observable.ref},
@@ -25,11 +24,6 @@ export abstract class GeneralFilterStore<T> implements EntityFilterStore<T> {
 
     setSelected(selected: T | null) {
         this.selected = selected;
-    }
-
-    getFiltered() {
-        const filter = new RegExp(this.filterText, 'i');
-        return this.generalRootStore.gridData;
     }
 
     editNew() {

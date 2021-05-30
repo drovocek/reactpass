@@ -11,7 +11,7 @@ class UserFilterStore extends GeneralFilterStore<User> {
 
     get filtered() {
         const filter = new RegExp(this.filterText, 'i');
-        const users = usersStore.users;
+        const users = usersStore.gridData;
         return users.filter((user) =>
             filter.test(`${user.fullName}`)
         );

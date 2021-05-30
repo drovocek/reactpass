@@ -1,9 +1,6 @@
 import {uiStore} from "Frontend/stores/app-store";
 import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
-import {makeAutoObservable, observable, runInAction} from "mobx";
-import {cacheable} from "Frontend/stores/cacheable";
-import * as endpoint from "Frontend/generated/UserEndpoint";
-import UserDataModel from "Frontend/generated/ru/volkov/getpass/data/endpoint/UserEndpoint/UserDataModel";
+import {makeAutoObservable, observable} from "mobx";
 
 export abstract class GeneralRootStore<T extends AbstractEntity> {
 
@@ -11,29 +8,9 @@ export abstract class GeneralRootStore<T extends AbstractEntity> {
 
     protected constructor(protected saveFunction: (a: T) => Promise<T>,
                           protected deleteByIdFunction: (a: number) => void) {
-        makeAutoObservable(
-            this,
-            {
-                initFromServer: false,
-                gridData: observable.shallow,
-            },
-            {autoBind: true}
-        );
-
-        this.initFromServer();
     }
 
-    async initFromServer() {
-        const data = await cacheable(
-            endpoint.getUsersData,
-            "user",
-            UserDataModel.createEmptyValue()
-        );
-
-        runInAction(() => {
-            this.gridData = data.users;
-        });
-    }
+    abstract initFromServer(): Promise<void>;
 
     async save(saved: T) {
         try {

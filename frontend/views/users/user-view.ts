@@ -26,7 +26,23 @@ export class UserView extends GeneralRootView<User> {
                .selectedItems="${[userFilterStore.getSelected()]}"
                @active-item-changed="${this.handleGridSelection}"
              >
-                   <vaadin-grid-column path="fullName" auto-width>
+                   <vaadin-grid-column path="id" auto-width>
+                     </vaadin-grid-column>
+                     <vaadin-grid-column path="role" auto-width>
+                     </vaadin-grid-column>
+                     <vaadin-grid-column path="fullName" auto-width>
+                     </vaadin-grid-column>
+                     <vaadin-grid-column path="userName" auto-width>
+                     </vaadin-grid-column>
+                     <vaadin-grid-column path="email" auto-width>
+                     </vaadin-grid-column>
+                     <vaadin-grid-column path="phone" auto-width>
+                     </vaadin-grid-column>
+                     <vaadin-grid-column path="enabled" auto-width>
+                     </vaadin-grid-column>
+                     <vaadin-grid-column path="regDate" auto-width>
+                     </vaadin-grid-column>
+                     <vaadin-grid-column path="lastActivity" auto-width>
                      </vaadin-grid-column>
                  </vaadin-grid>
                  <user-form-view 

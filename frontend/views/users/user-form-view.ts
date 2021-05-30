@@ -24,6 +24,22 @@ export class UserFormView extends GeneralFormView<User> {
          label="Full name"
          ?disabled="${uiStore.offline}"
          ...="${field(model.fullName)}"
-       ></vaadin-text-field>`;
+       ></vaadin-text-field>
+       <vaadin-text-field
+         label="Email"
+         ?disabled="${uiStore.offline}"
+         ...="${field(model.email)}"
+       ></vaadin-text-field>
+       <vaadin-text-field
+         label="Phone"
+         ?disabled="${uiStore.offline}"
+         ...="${field(model.phone)}"
+       ></vaadin-text-field>
+       <vaadin-checkbox
+         title="Is Active"
+         ?disabled="${uiStore.offline}"
+         ...="${field(model.enabled)}"
+       >Is Active</vaadin-checkbox>
+`;
     }
 }

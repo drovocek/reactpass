@@ -4,14 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.hibernate.annotations.Formula;
 import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -21,16 +17,30 @@ import java.time.LocalDateTime;
 @Entity
 public class User extends AbstractEntity implements Serializable {
 
-//    private Boolean enabled = true;
-//
-//    private Role role;
+    private Role role;
 
     private String fullName;
 
-//    private String phone;
+    private String userName;
 
-//    private String email = "default@email.ru";
-//
+    private String email;
+
+    private String phone;
+
+    private Boolean enabled = true;
+
+    private LocalDateTime regDate = LocalDateTime.now();
+
+    private LocalDateTime lastActivity = LocalDateTime.now();
+
+    public User(Role role, String fullName, String userName, String email, String phone) {
+        this.role = role;
+        this.fullName = fullName;
+        this.userName = userName;
+        this.email = email;
+        this.phone = phone;
+    }
+
 //    @Formula("(SELECT u.full_name FROM User u WHERE u.id = root_id)")
 //    private String rootName;
 //
@@ -40,14 +50,9 @@ public class User extends AbstractEntity implements Serializable {
 //    @Formula("(SELECT COUNT(*) FROM Car_Pass cp WHERE cp.user_id = id)")
 //    private int passCount;
 //
-//    private LocalDateTime lastActivity = LocalDateTime.now();
-//
-//    private LocalDate regDate = LocalDate.now();
-//
-//    private String userName;
-//
+
 //    private Integer rootId;
-//
+
 //    private String passwordSalt;
 //    private String passwordHash;
 //    private String activationCode;

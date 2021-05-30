@@ -4,11 +4,11 @@ export interface EntityFilterStore<T extends AbstractEntity> {
 
     save(entity: T): Promise<void>;
 
-    cancelEdit(): void;
-
     delete(): void;
 
     updateFilter(value: string): void;
+
+    cancelEdit(): void;
 
     setSelected(value: any): void;
 

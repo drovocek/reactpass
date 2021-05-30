@@ -1,13 +1,13 @@
 package ru.volkov.getpass.data.endpoint;
 
 import com.vaadin.flow.server.connect.Endpoint;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import ru.volkov.getpass.data.entity.Company;
-import ru.volkov.getpass.data.entity.Contact;
-import ru.volkov.getpass.data.entity.Status;
+import ru.volkov.getpass.data.entity.Role;
 import ru.volkov.getpass.data.entity.User;
 import ru.volkov.getpass.data.repository.UserRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,6 +19,7 @@ public class UserEndpoint {
     public UserData getUsersData() {
         UserData userData = new UserData();
         userData.users = userRepository.findAll();
+        userData.roles = Arrays.asList(Role.values());
         return userData;
     }
 
@@ -30,7 +31,9 @@ public class UserEndpoint {
         userRepository.deleteById(contactId);
     }
 
+    @Getter
     public static class UserData {
-        public List<User> users;
+        private List<User> users;
+        private List<Role> roles;
     }
 }

@@ -1,28 +1,55 @@
 import {View} from "Frontend/views/view";
-import {GeneralFilterStore} from "Frontend/views/general/general-filter-store";
+import {html, TemplateResult} from "lit-element";
+import {userFilterStore} from "Frontend/views/users/user-filter-store";
+import {uiStore} from "Frontend/stores/app-store";
+import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
+import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
 
-export class GeneralRootView extends View {
+export abstract class GeneralRootView<T> extends View {
 
-    generalListStore: GeneralFilterStore;
-
-    constructor(generalListStore: GeneralFilterStore) {
+    protected constructor(protected entityFilterStore: EntityFilterStore<User>) {
         super();
-        this.generalListStore = generalListStore;
+        this.entityFilterStore = entityFilterStore;
     }
+
+    render() {
+        return html`
+           <div class="toolbar gap-s">
+                 <vaadin-text-field
+                     placeholder="Filter by fullName"
+                      .value="${userFilterStore.filterText}"
+                     @input="${this.updateFilter}"
+                     clear-button-visible
+                    ></vaadin-text-field>
+                 <vaadin-button @click="${userFilterStore.editNew}">
+                     Add User
+                 </vaadin-button>
+           </div>
+           ${this.renderCore()}
+           <vaadin-notification
+             theme=${uiStore.message.error ? "error" : "contrast"}
+             position="bottom-start"
+             .opened="${uiStore.message.open}"
+             .renderer=${(root: HTMLElement) =>
+            (root.textContent = uiStore.message.text)}>
+            </vaadin-notification>
+         `;
+    }
+
+    abstract renderCore(): TemplateResult;
 
     updateFilter(e: { target: HTMLInputElement }) {
-        this.generalListStore.updateFilter(e.target.value);
+        this.entityFilterStore.updateFilter(e.target.value);
     }
 
-    // vaadin-grid fires a null-event when initialized.
-    // Ignore it.
     first = true;
+
     handleGridSelection(e: CustomEvent) {
         if (this.first) {
             this.first = false;
             return;
         }
-        this.generalListStore.setSelectedContact(e.detail.value);
+        this.entityFilterStore.setSelected(e.detail.value);
     }
 
     connectedCallback() {
@@ -37,7 +64,7 @@ export class GeneralRootView extends View {
             'h-full'
         );
         this.autorun(() => {
-            if (this.generalListStore.selected) {
+            if (this.entityFilterStore.selected) {
                 this.classList.add("editing");
             } else {
                 this.classList.remove("editing");

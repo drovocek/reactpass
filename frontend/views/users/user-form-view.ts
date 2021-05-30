@@ -16,19 +16,14 @@ export class UserFormView extends GeneralFormView<User> {
         super(UserModel, userFilterStore);
     }
 
-    render() {
+    //html
+    renderCore() {
         const {model} = <Binder<User, UserModel<User>>>this.binder;
         return html`
        <vaadin-text-field
          label="Full name"
          ?disabled="${uiStore.offline}"
          ...="${field(model.fullName)}"
-       ></vaadin-text-field>
-     ${super.render()}`;
-    }
-
-    async save() {
-        await this.binder.submitTo(userFilterStore.save);
-        this.binder.clear();
+       ></vaadin-text-field>`;
     }
 }

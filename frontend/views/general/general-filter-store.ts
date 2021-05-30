@@ -1,16 +1,18 @@
 import {makeAutoObservable, observable} from "mobx";
 import {GeneralRootStore} from "Frontend/views/general/general-root-store";
+import {EntityFilterStore} from "entity-filter-store.ts";
+import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
 
-export class GeneralFilterStore {
+export class GeneralFilterStore<T> implements EntityFilterStore<T> {
 
     filterText: string = '';
-    selected: any | null = null;
+    selected: T | null = null;
     generalRootStore: GeneralRootStore;
-    model: any;
+    entityModel: any;
 
-    constructor(generalRootStore: GeneralRootStore, model: any) {
+    constructor(generalRootStore: GeneralRootStore, entityModel: ModelConstructor<T, AbstractModel<T>>) {
         this.generalRootStore = generalRootStore;
-        this.model = model;
+        this.entityModel = entityModel;
         makeAutoObservable(
             this,
             {selected: observable.ref},
@@ -22,26 +24,25 @@ export class GeneralFilterStore {
         this.filterText = filterText;
     }
 
-    setSelectedContact(selected: any | null) {
+    setSelected(selected: T | null) {
         this.selected = selected;
     }
 
     getFiltered() {
         const filter = new RegExp(this.filterText, 'i');
-        const data = this.generalRootStore.gridData;
-        return data;
+        return this.generalRootStore.gridData;
     }
 
     editNew() {
         // @ts-ignore
-        this.selected = this.model.createEmptyValue();
+        this.selected = this.entityModel.createEmptyValue();
     }
 
     cancelEdit() {
         this.selected = null;
     }
 
-    async save(saved: any) {
+    async save(saved: T) {
         await this.generalRootStore.save(saved);
         this.cancelEdit();
     }

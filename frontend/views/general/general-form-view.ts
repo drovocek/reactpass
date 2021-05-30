@@ -1,4 +1,4 @@
-import {html} from 'lit-element';
+import {html, TemplateResult} from 'lit-element';
 import {View} from '../view';
 import '@vaadin/vaadin-text-field';
 import '@vaadin/vaadin-combo-box';
@@ -7,26 +7,22 @@ import {Binder} from 'Frontend/../target/flow-frontend/form';
 import {uiStore} from 'Frontend/stores/app-store';
 import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
 import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
-import {EntityStore} from "Frontend/views/general/entity-store";
+import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
 
-export class GeneralFormView<T extends AbstractEntity> extends View {
+export abstract class GeneralFormView<T extends AbstractEntity> extends View {
 
     protected binder: Binder<T, AbstractModel<T>>;
 
-    constructor(entityModel: ModelConstructor<T, AbstractModel<T>>,
-                protected store: EntityStore<T>) {
+    protected constructor(entityModel: ModelConstructor<T, AbstractModel<T>>,
+                          protected store: EntityFilterStore<T>) {
         super();
         this.binder = new Binder(this, entityModel);
-        this.autorun(() =>
-            this.binder.read(
-                store.selected || entityModel.createEmptyValue()
-            )
-        );
+        this.autorun(() => this.binder.read(store.selected || entityModel.createEmptyValue()));
     }
 
     render() {
-        // const {model} = <Binder<T, AbstractEntityModel<T>>>this.binder;
         return html`
+       ${this.renderCore()}
        <div class="buttons se-s">
          <vaadin-button
            theme="primary"
@@ -48,6 +44,8 @@ export class GeneralFormView<T extends AbstractEntity> extends View {
        </div>
      `;
     }
+
+    abstract renderCore(): TemplateResult;
 
     async save() {
         await this.binder.submitTo(this.store.save);

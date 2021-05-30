@@ -4,29 +4,28 @@ import '@vaadin/vaadin-text-field';
 import '@vaadin/vaadin-combo-box';
 import '@vaadin/vaadin-button';
 import {Binder} from 'Frontend/../target/flow-frontend/form';
-import {userFilterStore} from './user-filter-store';
 import {uiStore} from 'Frontend/stores/app-store';
 import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
 import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
-import {EntityStore} from "Frontend/views/general/general-root-store";
+import {EntityStore} from "Frontend/views/general/entity-store";
 
 export class GeneralFormView<T extends AbstractEntity> extends View {
 
     protected binder: Binder<T, AbstractModel<T>>;
 
-    constructor(private model: ModelConstructor<T, AbstractModel<T>>,
-                private store: EntityStore<T>) {
+    constructor(entityModel: ModelConstructor<T, AbstractModel<T>>,
+                protected store: EntityStore<T>) {
         super();
-        this.binder = new Binder(this, model);
+        this.binder = new Binder(this, entityModel);
         this.autorun(() =>
             this.binder.read(
-                store.selected || model.createEmptyValue()
+                store.selected || entityModel.createEmptyValue()
             )
         );
     }
 
     render() {
-        const {model} = this.binder;
+        // const {model} = <Binder<T, AbstractEntityModel<T>>>this.binder;
         return html`
        <div class="buttons se-s">
          <vaadin-button
@@ -38,7 +37,7 @@ export class GeneralFormView<T extends AbstractEntity> extends View {
          </vaadin-button>
          <vaadin-button
            theme="error"
-           @click="${userFilterStore.delete}"
+           @click="${this.store.delete}"
            ?disabled=${!this.binder.value.id || uiStore.offline}
          >
            Delete

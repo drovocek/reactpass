@@ -54,11 +54,3 @@ export class GeneralRootStore {
         this.gridData = this.gridData.filter((c) => c.id !== deleted.id);
     }
 }
-
-export interface EntityStore<T extends AbstractEntity> {
-    selected: T | null;
-
-    save(entity: T): Promise<T>;
-
-    cancelEdit(): void;
-}

@@ -2,8 +2,9 @@ import {makeAutoObservable, observable} from 'mobx';
 import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
 import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
 import {usersStore} from 'Frontend/stores/app-store';
+import {EntityStore} from "Frontend/views/general/entity-store";
 
-class UserFilterStore {
+class UserFilterStore implements EntityStore<User> {
     filterText = '';
     selected: User | null = null;
 

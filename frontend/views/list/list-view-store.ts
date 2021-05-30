@@ -1,7 +1,7 @@
 import Contact from 'Frontend/generated/ru/volkov/getpass/data/entity/Contact';
 import ContactModel from 'Frontend/generated/ru/volkov/getpass/data/entity/ContactModel';
-import { crmStore } from 'Frontend/stores/app-store';
-import { makeAutoObservable, observable } from 'mobx';
+import {crmStore} from 'Frontend/stores/app-store';
+import {makeAutoObservable, observable} from 'mobx';
 
 class ListViewStore {
     filterText = '';
@@ -10,8 +10,8 @@ class ListViewStore {
     constructor() {
         makeAutoObservable(
             this,
-            { selectedContact: observable.ref },
-            { autoBind: true }
+            {selectedContact: observable.ref},
+            {autoBind: true}
         );
     }
 

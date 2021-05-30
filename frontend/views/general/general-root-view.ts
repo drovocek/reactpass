@@ -1,6 +1,5 @@
 import {View} from "Frontend/views/view";
 import {html, TemplateResult} from "lit-element";
-import {userFilterStore} from "Frontend/views/users/user-filter-store";
 import {uiStore} from "Frontend/stores/app-store";
 import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
 import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
@@ -9,7 +8,6 @@ export abstract class GeneralRootView<T extends AbstractEntity> extends View {
 
     protected constructor(protected entityFilterStore: EntityFilterStore<T>) {
         super();
-        this.entityFilterStore = entityFilterStore;
     }
 
     render() {
@@ -17,11 +15,11 @@ export abstract class GeneralRootView<T extends AbstractEntity> extends View {
            <div class="toolbar gap-s">
                  <vaadin-text-field
                      placeholder="Filter by fullName"
-                      .value="${userFilterStore.getFilterText()}"
+                      .value="${this.entityFilterStore.getFilterText()}"
                      @input="${this.updateFilter}"
                      clear-button-visible
                     ></vaadin-text-field>
-                 <vaadin-button @click="${userFilterStore.editNew}">
+                 <vaadin-button @click="${() => this.entityFilterStore.editNew()}">
                      Add User
                  </vaadin-button>
            </div>

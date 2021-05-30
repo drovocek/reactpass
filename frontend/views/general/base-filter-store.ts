@@ -1,5 +1,4 @@
 import {makeAutoObservable, observable} from "mobx";
-import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
 import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
 import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
 import {GeneralRootStore} from "Frontend/views/general/general-root-store";
@@ -10,12 +9,7 @@ export class BaseFilterStore<T extends AbstractEntity, D> implements EntityFilte
     selected: T | null = null;
 
     public constructor(protected generalRootStore: GeneralRootStore<T, D>,
-                       protected entityModel: ModelConstructor<T, AbstractModel<T>>) {
-        this.generalRootStore = generalRootStore;
-        this.entityModel = entityModel;
-        console.log("!!!!!222222!!!!");
-        console.log(this.generalRootStore);
-        console.log(this.entityModel);
+                       protected createEmptyFunction: T) {
         makeAutoObservable(
             this,
             {selected: observable.ref},
@@ -36,8 +30,7 @@ export class BaseFilterStore<T extends AbstractEntity, D> implements EntityFilte
     }
 
     editNew() {
-        // @ts-ignore
-        this.selected = this.entityModel.createEmptyValue();
+        this.selected = this.createEmptyFunction();
     }
 
     cancelEdit() {
@@ -50,10 +43,13 @@ export class BaseFilterStore<T extends AbstractEntity, D> implements EntityFilte
     }
 
     async delete() {
-        console.log("$$$$$$$$$$$")
         if (this.selected) {
             await this.generalRootStore.delete(this.selected);
             this.cancelEdit();
         }
+    }
+
+    getFilterText(): string {
+        return this.filterText;
     }
 }

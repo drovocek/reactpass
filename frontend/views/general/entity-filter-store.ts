@@ -13,4 +13,8 @@ export interface EntityFilterStore<T extends AbstractEntity> {
     setSelected(value: any): void;
 
     getSelected(): T | null;
+
+    getFilterText(): string | '';
+
+    editNew(): void;
 }

@@ -7,7 +7,7 @@ import UserData from "Frontend/generated/ru/volkov/getpass/data/endpoint/UserEnd
 class UserFilterStore extends GeneralFilterStore<User, UserData> {
 
     constructor() {
-        super(usersStore, UserModel);
+        super(usersStore, () => UserModel.createEmptyValue());
     }
 
     get filtered() {

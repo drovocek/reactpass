@@ -16,8 +16,6 @@ export abstract class GeneralFormView<T extends AbstractEntity> extends View {
     protected constructor(protected entityModel: ModelConstructor<T, AbstractModel<T>>,
                           protected store: EntityFilterStore<T>) {
         super();
-        this.entityModel = entityModel;
-        this.store = store;
         this.binder = new Binder(this, entityModel);
         this.autorun(() => this.binder.read(store.getSelected() || entityModel.createEmptyValue()));
     }
@@ -35,12 +33,12 @@ export abstract class GeneralFormView<T extends AbstractEntity> extends View {
          </vaadin-button>
          <vaadin-button
            theme="error"
-           @click="${this.store.delete}"
+           @click="${() => this.store.delete()}"
            ?disabled=${!this.binder.value.id || uiStore.offline}
          >
            Delete
          </vaadin-button>
-         <vaadin-button theme="tertiary" @click="${this.store.cancelEdit}">
+         <vaadin-button theme="tertiary" @click="${() => this.store.cancelEdit()}">
            Cancel
          </vaadin-button>
        </div>
@@ -50,7 +48,7 @@ export abstract class GeneralFormView<T extends AbstractEntity> extends View {
     abstract renderCore(): TemplateResult;
 
     async save() {
-        await this.binder.submitTo(this.store.save);
+        await this.binder.submitTo((entity) => this.store.save(entity));
         this.binder.clear();
     }
 }

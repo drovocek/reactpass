@@ -17,7 +17,7 @@ export abstract class GeneralRootView<T extends AbstractEntity> extends View {
            <div class="toolbar gap-s">
                  <vaadin-text-field
                      placeholder="Filter by fullName"
-                      .value="${userFilterStore.filterText}"
+                      .value="${userFilterStore.getFilterText()}"
                      @input="${this.updateFilter}"
                      clear-button-visible
                     ></vaadin-text-field>
@@ -64,7 +64,7 @@ export abstract class GeneralRootView<T extends AbstractEntity> extends View {
             'h-full'
         );
         this.autorun(() => {
-            if (this.entityFilterStore.selected) {
+            if (this.entityFilterStore.getSelected()) {
                 this.classList.add("editing");
             } else {
                 this.classList.remove("editing");

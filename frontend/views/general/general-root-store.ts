@@ -1,55 +1,37 @@
-import {uiStore} from "Frontend/stores/app-store";
 import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
-import {makeAutoObservable, observable} from "mobx";
+import UserData from "Frontend/generated/ru/volkov/getpass/data/endpoint/UserEndpoint/UserData";
+import {BaseRootStore} from "Frontend/views/general/base-root-store";
 
-export abstract class GeneralRootStore<T extends AbstractEntity> {
+export class GeneralRootStore<T extends AbstractEntity, D> {
 
-    gridData: T[] = [];
+    private generalStore: BaseRootStore<T, D>;
 
-    protected constructor(protected saveFunction: (a: T) => Promise<T>,
-                          protected deleteByIdFunction: (a: number) => void) {
+    public constructor(protected saveFunction: (a: T) => Promise<T>,
+                       protected deleteByIdFunction: (a: number) => void,
+                       protected getUsersDataFunction: () => Promise<D>,
+                       protected key: string,
+                       protected createEmptyFunction: D) {
+        this.generalStore = new BaseRootStore<T, D>(
+            saveFunction,
+            deleteByIdFunction,
+            getUsersDataFunction,
+            key,
+            createEmptyFunction);
     }
 
-    abstract initFromServer(): Promise<void>;
-
-    async save(saved: T) {
-        try {
-            this.saveLocal(await this.saveFunction(saved));
-            uiStore.showSuccess("Saved.");
-        } catch (e) {
-            console.log(e);
-            uiStore.showError("Save failed.");
-        }
+    save(saved: T) {
+        return this.generalStore.save(saved);
     }
 
-    async delete(deleted: T) {
-        if (!deleted.id) return;
-        try {
-            await this.deleteByIdFunction(deleted.id);
-            this.deleteLocal(deleted);
-            uiStore.showSuccess("Deleted.");
-        } catch (e) {
-            console.log(e);
-            uiStore.showError("Failed to delete.");
-        }
+    delete(deleted: T) {
+        return this.generalStore.delete(deleted);
     }
 
-    private saveLocal(saved: T) {
-        const contactExists = this.gridData.some((c) => c.id === saved.id);
-        if (contactExists) {
-            this.gridData = this.gridData.map((existing) => {
-                if (existing.id === saved.id) {
-                    return saved;
-                } else {
-                    return existing;
-                }
-            });
-        } else {
-            this.gridData.push(saved);
-        }
+    getData(){
+        return this.generalStore.gridData;
     }
 
-    private deleteLocal(deleted: T) {
-        this.gridData = this.gridData.filter((c) => c.id !== deleted.id);
+    initFromServer(){
+        return this.generalStore.initFromServer();
     }
 }

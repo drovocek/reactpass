@@ -23,7 +23,7 @@ export class UserView extends GeneralRootView<User> {
              <vaadin-grid
                class="grid h-full"
                .items="${userFilterStore.filtered}"
-               .selectedItems="${[userFilterStore.selected]}"
+               .selectedItems="${[userFilterStore.getSelected()]}"
                @active-item-changed="${this.handleGridSelection}"
              >
                    <vaadin-grid-column path="fullName" auto-width>
@@ -31,7 +31,7 @@ export class UserView extends GeneralRootView<User> {
                  </vaadin-grid>
                  <user-form-view 
                  class="flex flex-col spacing-b-s p-m"
-                 ?hidden="${!userFilterStore.selected}"
+                 ?hidden="${!userFilterStore.getSelected()}"
                  ></user-form-view>
            </div>
          `;

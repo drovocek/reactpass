@@ -1,49 +1,60 @@
-import {makeAutoObservable, observable} from "mobx";
-import {GeneralRootStore} from "Frontend/views/general/general-root-store";
 import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
 import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
 import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
+import {GeneralRootStore} from "Frontend/views/general/general-root-store";
+import {BaseFilterStore} from "Frontend/views/general/base-filter-store";
 
-export class GeneralFilterStore<T extends AbstractEntity> implements EntityFilterStore<T> {
+export class GeneralFilterStore<T extends AbstractEntity, D> implements EntityFilterStore<T> {
 
-    filterText: string = '';
-    selected: T | null = null;
+    baseFilterStore: BaseFilterStore<T, D>;
 
-    protected constructor(protected generalRootStore: GeneralRootStore<T>,
+    protected constructor(protected generalRootStore: GeneralRootStore<T, D>,
                           protected entityModel: ModelConstructor<T, AbstractModel<T>>) {
-        makeAutoObservable(
-            this,
-            {selected: observable.ref},
-            {autoBind: true}
-        );
+        this.baseFilterStore = new BaseFilterStore<T, D>(generalRootStore, entityModel);
+        console.log("!!!!!!!!!")
+        console.log("constructor: " + this.baseFilterStore)
+        console.log("constructor: " + this.generalRootStore)
+        console.log("constructor: " + this.entityModel)
+    }
+
+    getSelected() {
+        console.log(`getSelected: ${this.baseFilterStore}`)
+        return this.baseFilterStore.getSelected();
+    }
+
+    getFilterText() {
+        console.log("getFilterText: " + this.baseFilterStore)
+        return this.baseFilterStore.filterText;
     }
 
     updateFilter(filterText: string) {
-        this.filterText = filterText;
+        console.log("updateFilter: " + this.baseFilterStore)
+        this.baseFilterStore.updateFilter(filterText);
     }
 
     setSelected(selected: T | null) {
-        this.selected = selected;
+        console.log("setSelected: " + this.baseFilterStore)
+        this.baseFilterStore.setSelected(selected);
     }
 
     editNew() {
+        console.log("editNew: " + this.baseFilterStore)
         // @ts-ignore
-        this.selected = this.entityModel.createEmptyValue();
+        this.baseFilterStore.editNew();
     }
 
     cancelEdit() {
-        this.selected = null;
+        console.log("cancelEdit: " + this.baseFilterStore)
+        this.baseFilterStore.cancelEdit();
     }
 
-    async save(saved: T) {
-        await this.generalRootStore.save(saved);
-        this.cancelEdit();
+    save(saved: T) {
+        console.log("save: " + this.baseFilterStore)
+        return this.baseFilterStore.save(saved);
     }
 
-    async delete() {
-        if (this.selected) {
-            await this.generalRootStore.delete(this.selected);
-            this.cancelEdit();
-        }
+    delete() {
+        console.log(`delete: ${this.baseFilterStore}`)
+        return this.baseFilterStore.delete();
     }
 }

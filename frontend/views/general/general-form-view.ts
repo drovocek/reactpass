@@ -13,11 +13,13 @@ export abstract class GeneralFormView<T extends AbstractEntity> extends View {
 
     protected binder: Binder<T, AbstractModel<T>>;
 
-    protected constructor(entityModel: ModelConstructor<T, AbstractModel<T>>,
+    protected constructor(protected entityModel: ModelConstructor<T, AbstractModel<T>>,
                           protected store: EntityFilterStore<T>) {
         super();
+        this.entityModel = entityModel;
+        this.store = store;
         this.binder = new Binder(this, entityModel);
-        this.autorun(() => this.binder.read(store.selected || entityModel.createEmptyValue()));
+        this.autorun(() => this.binder.read(store.getSelected() || entityModel.createEmptyValue()));
     }
 
     render() {

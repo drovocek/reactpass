@@ -14,7 +14,6 @@ export class UserView extends GeneralRootView<User> {
 
     constructor() {
         super(userFilterStore);
-        console.log("UserView: constructor: " + userFilterStore)
     }
 
     //html

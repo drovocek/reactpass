@@ -9,7 +9,7 @@ export class BaseFilterStore<T extends AbstractEntity, D> implements EntityFilte
     selected: T | null = null;
 
     public constructor(protected generalRootStore: GeneralRootStore<T, D>,
-                       protected createEmptyFunction: T) {
+                       protected createEmptyFunction: () => T) {
         makeAutoObservable(
             this,
             {selected: observable.ref},

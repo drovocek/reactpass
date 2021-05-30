@@ -8,8 +8,15 @@ export class GeneralFilterStore<T extends AbstractEntity, D> implements EntityFi
     baseFilterStore: BaseFilterStore<T, D>;
 
     protected constructor(protected generalRootStore: GeneralRootStore<T, D>,
-                          protected createEmptyFunction: T) {
+                          protected createEmptyFunction: () => T,
+                          protected filterPatternFunction: (entity: T) => string) {
         this.baseFilterStore = new BaseFilterStore<T, D>(generalRootStore, createEmptyFunction);
+    }
+
+    get filtered() {
+        const filter = new RegExp(this.getFilterText(), 'i');
+        const users = this.generalRootStore.getData();
+        return users.filter((entity) => filter.test(this.filterPatternFunction(entity)));
     }
 
     getSelected() {

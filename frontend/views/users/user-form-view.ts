@@ -4,7 +4,7 @@ import '@vaadin/vaadin-combo-box';
 import '@vaadin/vaadin-button';
 import {Binder, field} from 'Frontend/../target/flow-frontend/form';
 import {userFilterStore} from './user-filter-store';
-import {uiStore} from 'Frontend/stores/app-store';
+import {uiStore, usersStore} from 'Frontend/stores/app-store';
 import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
 import {GeneralFormView} from "Frontend/views/general/general-form-view";
 import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
@@ -20,6 +20,13 @@ export class UserFormView extends GeneralFormView<User> {
     renderCore() {
         const {model} = <Binder<User, UserModel<User>>>this.binder;
         return html`
+        <vaadin-combo-box
+         label="Status"
+         .items="${usersStore.roles}"
+         ?disabled="${uiStore.offline}"
+         item-label-path="role"
+         ...="${field(model.role)}"
+       ></vaadin-combo-box>
        <vaadin-text-field
          label="Full name"
          ?disabled="${uiStore.offline}"

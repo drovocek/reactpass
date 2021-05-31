@@ -5,18 +5,16 @@ export class GeneralRootStore<T extends AbstractEntity, D> {
 
     private readonly generalStore: BaseRootStore<T, D>;
 
-    public constructor(protected saveFunction: (a: T) => Promise<T>,
-                       protected deleteByIdFunction: (a: number) => void,
-                       protected getUsersDataFunction: () => Promise<D>,
-                       protected key: string,
-                       protected createEmptyFunction: D) {
+    public constructor(saveFunction: (a: T) => Promise<T>,
+                       deleteByIdFunction: (a: number) => void,
+                       initFromServerFunction: () => Promise<void>,
+                       gridData: T[]) {
         this.generalStore =
             new BaseRootStore<T, D>(
                 saveFunction,
                 deleteByIdFunction,
-                getUsersDataFunction,
-                key,
-                createEmptyFunction);
+                initFromServerFunction,
+                gridData);
     }
 
     save(saved: T) {
@@ -27,11 +25,11 @@ export class GeneralRootStore<T extends AbstractEntity, D> {
         return this.generalStore.delete(deleted);
     }
 
-    getData() {
+    getGridData() {
         return this.generalStore.gridData;
     }
 
     initFromServer() {
-        return this.generalStore.initFromServer();
+        return this.generalStore.initFromServerFunction();
     }
 }

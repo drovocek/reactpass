@@ -1,21 +1,21 @@
 import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
 import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
-import {GeneralRootStore} from "Frontend/views/general/general-root-store";
 import {BaseFilterStore} from "Frontend/views/general/base-filter-store";
+import {EntityRootStore} from "Frontend/views/general/entity-root-store";
 
 export class GeneralFilterStore<T extends AbstractEntity, D> implements EntityFilterStore<T> {
 
     baseFilterStore: BaseFilterStore<T, D>;
 
-    protected constructor(protected generalRootStore: GeneralRootStore<T, D>,
+    protected constructor(protected entityRootStore: EntityRootStore<T>,
                           protected createEmptyFunction: () => T,
                           protected filterPatternFunction: (entity: T) => string) {
-        this.baseFilterStore = new BaseFilterStore<T, D>(generalRootStore, createEmptyFunction);
+        this.baseFilterStore = new BaseFilterStore<T, D>(entityRootStore, createEmptyFunction);
     }
 
     get filtered() {
         const filter = new RegExp(this.getFilterText(), 'i');
-        const users = this.generalRootStore.getData();
+        const users = this.entityRootStore.getGridData();
         return users.filter((entity) => filter.test(this.filterPatternFunction(entity)));
     }
 

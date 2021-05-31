@@ -2,13 +2,14 @@ import {makeAutoObservable, observable} from "mobx";
 import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
 import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
 import {GeneralRootStore} from "Frontend/views/general/general-root-store";
+import {EntityRootStore} from "Frontend/views/general/entity-root-store";
 
 export class BaseFilterStore<T extends AbstractEntity, D> implements EntityFilterStore<T> {
 
     filterText: string = '';
     selected: T | null = null;
 
-    public constructor(protected generalRootStore: GeneralRootStore<T, D>,
+    public constructor(protected entityRootStore: EntityRootStore<T>,
                        protected createEmptyFunction: () => T) {
         makeAutoObservable(
             this,
@@ -38,13 +39,13 @@ export class BaseFilterStore<T extends AbstractEntity, D> implements EntityFilte
     }
 
     async save(saved: T) {
-        await this.generalRootStore.save(saved);
+        await this.entityRootStore.save(saved);
         this.cancelEdit();
     }
 
     async delete() {
         if (this.selected) {
-            await this.generalRootStore.delete(this.selected);
+            await this.entityRootStore.delete(this.selected);
             this.cancelEdit();
         }
     }

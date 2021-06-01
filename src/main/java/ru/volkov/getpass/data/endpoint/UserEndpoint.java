@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ru.volkov.getpass.data.entity.Role;
 import ru.volkov.getpass.data.entity.User;
+import ru.volkov.getpass.data.repository.RoleRepository;
 import ru.volkov.getpass.data.repository.UserRepository;
 
 import java.util.Arrays;
@@ -15,11 +16,12 @@ import java.util.List;
 public class UserEndpoint {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     public UserData getUsersData() {
         UserData userData = new UserData();
         userData.users = userRepository.findAll();
-        userData.roles = Arrays.asList(Role.values());
+        userData.roles = roleRepository.findAll();
         return userData;
     }
 

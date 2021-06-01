@@ -21,10 +21,10 @@ export class UserFormView extends GeneralFormView<User> {
         const {model} = <Binder<User, UserModel<User>>>this.binder;
         return html`
         <vaadin-combo-box
-         label="Status"
+         label="Role"
          .items="${usersStore.roles}"
          ?disabled="${uiStore.offline}"
-         item-label-path="role"
+         item-label-path="name"
          ...="${field(model.role)}"
        ></vaadin-combo-box>
        <vaadin-text-field

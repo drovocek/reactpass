@@ -7,6 +7,8 @@ import lombok.Setter;
 import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -17,6 +19,8 @@ import java.time.LocalDateTime;
 @Entity
 public class User extends AbstractEntity implements Serializable {
 
+    @NotNull
+    @ManyToOne
     private Role role;
 
     private String fullName;
@@ -33,8 +37,7 @@ public class User extends AbstractEntity implements Serializable {
 
     private LocalDateTime lastActivity = LocalDateTime.now();
 
-    public User(Role role, String fullName, String userName, String email, String phone) {
-        this.role = role;
+    public User(String fullName, String userName, String email, String phone) {
         this.fullName = fullName;
         this.userName = userName;
         this.email = email;

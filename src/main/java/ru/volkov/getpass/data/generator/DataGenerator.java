@@ -8,10 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 import ru.volkov.getpass.data.entity.*;
-import ru.volkov.getpass.data.repository.CompanyRepository;
-import ru.volkov.getpass.data.repository.ContactRepository;
-import ru.volkov.getpass.data.repository.StatusRepository;
-import ru.volkov.getpass.data.repository.UserRepository;
+import ru.volkov.getpass.data.repository.*;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -25,7 +22,7 @@ public class DataGenerator {
 
     @Bean
     public CommandLineRunner loadData(ContactRepository contactRepository, CompanyRepository companyRepository,
-                                      StatusRepository statusRepository, UserRepository userRepository) {
+                                      StatusRepository statusRepository, UserRepository userRepository, RoleRepository roleRepository) {
 
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
@@ -60,14 +57,27 @@ public class DataGenerator {
             }).collect(Collectors.toList());
 
             contactRepository.saveAll(contacts);
+
+            List<Role> roles = roleRepository
+                    .saveAll(Stream.of("Owner", "Guard", "Company", "Employee")
+                            .map(Role::new).collect(Collectors.toList()));
+
             List<User> users = Arrays.asList(
-                    new User(Role.OWNER, "OOO OWNER", "owner", "owner@email.ru", "+7 (777) 777-77-77"),
-                    new User(Role.GUARD, "Guard Vasia", "guard", "guard@email.ru", "+6 (666) 666-66-66"),
-                    new User(Role.COMPANY, "OOO COMPANY", "company", "company@email.ru", "+5 (555) 555-55-55"),
-                    new User(Role.COMPANY, "OOO ROGA&COPITA", "rogacopita", "rogacopita@email.ru", "+8 (888) 888-88-88"),
-                    new User(Role.EMPLOYEE, "Employee Ivan", "employee", "employee@email.ru", "+4 (444) 444-44-44"),
-                    new User(Role.EMPLOYEE, "Anansky Andrey", "mhsn", "mhsn@email.ru", "+9 (999) 999-99-99")
+                    new User("OOO OWNER", "owner", "owner@email.ru", "+7 (777) 777-77-77"),
+                    new User("Guard Vasia", "guard", "guard@email.ru", "+6 (666) 666-66-66"),
+                    new User("OOO COMPANY", "company", "company@email.ru", "+5 (555) 555-55-55"),
+                    new User("OOO ROGA&COPITA", "rogacopita", "rogacopita@email.ru", "+8 (888) 888-88-88"),
+                    new User("Employee Ivan", "employee", "employee@email.ru", "+4 (444) 444-44-44"),
+                    new User("Anansky Andrey", "mhsn", "mhsn@email.ru", "+9 (999) 999-99-99")
             );
+
+            users.get(0).setRole(roles.get(0));
+            users.get(1).setRole(roles.get(1));
+            users.get(2).setRole(roles.get(2));
+            users.get(3).setRole(roles.get(2));
+            users.get(4).setRole(roles.get(3));
+            users.get(5).setRole(roles.get(3));
+
             userRepository.saveAll(users);
 
             logger.info("Generated demo data");

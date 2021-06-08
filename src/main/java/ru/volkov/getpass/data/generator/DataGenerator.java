@@ -22,7 +22,8 @@ public class DataGenerator {
 
     @Bean
     public CommandLineRunner loadData(ContactRepository contactRepository, CompanyRepository companyRepository,
-                                      StatusRepository statusRepository, UserRepository userRepository, RoleRepository roleRepository) {
+                                      StatusRepository statusRepository, UserRepository userRepository, RoleRepository roleRepository,
+                                      CarPassRepository carPassRepository) {
 
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
@@ -70,6 +71,14 @@ public class DataGenerator {
                     new User("Employee Ivan", "employee", "employee@email.ru", "+4 (444) 444-44-44"),
                     new User("Anansky Andrey", "mhsn", "mhsn@email.ru", "+9 (999) 999-99-99")
             );
+
+            ExampleDataGenerator<CarPass> carPassGenerator = new ExampleDataGenerator<>(CarPass.class,
+                    LocalDateTime.now());
+            carPassGenerator.setData(CarPass::setRegNum, DataType.IBAN);
+            carPassGenerator.setData(CarPass::setArrivalDate, DataType.DATE_LAST_7_DAYS);
+
+            List<CarPass> carPasses = carPassGenerator.create(50, seed);
+            carPassRepository.saveAll(carPasses);
 
             users.get(0).setRole(roles.get(0));
             users.get(1).setRole(roles.get(1));

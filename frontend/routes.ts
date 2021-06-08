@@ -1,7 +1,7 @@
 import { Commands, Context, Route, Router } from '@vaadin/router';
 import './views/list/list-view';
 import './views/users/user-view';
-import './views/pass/pass-view';
+import './views/carPass/car-pass-view';
 import './main-layout.ts';
 import "./views/login/login-view";
 import { uiStore } from './stores/app-store';
@@ -42,7 +42,7 @@ export const views: ViewRoute[] = [
   },
   {
     path: 'pass',
-    component: 'pass-view',
+    component: 'car-pass-view',
     title: 'Pass',
   },
   {

@@ -29,8 +29,8 @@ public class UserEndpoint {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Integer contactId) {
-        userRepository.deleteById(contactId);
+    public void deleteUser(Integer userId) {
+        userRepository.deleteById(userId);
     }
 
     @Getter

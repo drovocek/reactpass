@@ -9,7 +9,7 @@ import './user-form-view';
 import {userFilterStore} from "Frontend/views/users/user-filter-store";
 import {GeneralRootView} from "Frontend/views/general/general-root-view";
 import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
-import {boolRenderer, dateRenderer, dateTimeRenderer} from "Frontend/util/formatterUtil";
+import {dateRenderer, dateTimeRenderer} from "Frontend/util/formatterUtil";
 import {GridColumnElement} from "@vaadin/vaadin-grid";
 
 

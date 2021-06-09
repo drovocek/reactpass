@@ -9,7 +9,9 @@ import {carPassFilterStore} from "Frontend/views/carPass/car-pass-filter-store";
 import {GeneralRootView} from "Frontend/views/general/general-root-view";
 import CarPass from "Frontend/generated/ru/volkov/getpass/data/entity/CarPass";
 import {dateRenderer, dateTimeRenderer} from "Frontend/util/formatterUtil";
-import {GridColumnElement} from "@vaadin/vaadin-grid";
+import {GridColumnElement, GridItemModel} from "@vaadin/vaadin-grid";
+import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
+import CarPassModel from "Frontend/generated/ru/volkov/getpass/data/entity/CarPassModel";
 
 
 @customElement('car-pass-view')
@@ -65,9 +67,43 @@ export class CarPassView extends GeneralRootView<CarPass> {
 
     firstUpdated() {
         if (this._columns !== undefined) {
-            this._columns[3].renderer = dateRenderer;
-            this._columns[4].renderer = dateTimeRenderer;
-            this._columns[5].renderer = dateTimeRenderer;
+            this._columns.forEach(col=>console.log(col))
+            this._columns[3].renderer = function (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) {
+                if (!root.firstElementChild && model !== undefined) {
+                    const lastAct = new Date((<CarPassModel>model.item).arrivalDate.toString());
+                    root.innerHTML = lastAct.toLocaleDateString("ru");
+                }
+            };
+            this._columns[4].renderer = function (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) {
+                if (!root.firstElementChild && model !== undefined) {
+                    const lastAct = new Date((<CarPassModel>model.item).regDataTime.toString());
+                    const dateTimeOptions = {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        timezone: 'UTC',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric'
+                    };
+                    root.innerHTML = lastAct.toLocaleDateString("ru", dateTimeOptions);
+                }
+            };
+            this._columns[5].renderer = function (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) {
+                if (!root.firstElementChild && model !== undefined) {
+                    const lastAct = new Date((<CarPassModel>model.item).arrivalDate.toString());
+                    const dateTimeOptions = {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        timezone: 'UTC',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric'
+                    };
+                    root.innerHTML = lastAct.toLocaleDateString("ru", dateTimeOptions);
+                }
+            };
         }
     }
 }

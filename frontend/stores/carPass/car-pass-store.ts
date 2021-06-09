@@ -24,12 +24,12 @@ export class CarPassStore implements EntityRootStore<CarPass>{
     async initFromServer() {
         const data = await cacheable(
             endpoint.getCarPassData,
-            "carPass",
+            "carPasses",
             CarPassDataModel.createEmptyValue()
         );
 
         runInAction(() => {
-            this.gridData = data.users;
+            this.gridData = data.carPasses;
         });
     }
 

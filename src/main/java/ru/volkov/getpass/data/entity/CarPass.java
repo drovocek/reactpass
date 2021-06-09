@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Formula;
+import javax.annotation.Nullable;
 import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.persistence.Entity;
@@ -29,6 +30,7 @@ public class CarPass extends AbstractEntity implements Serializable {
 
     private LocalDateTime regDataTime = LocalDateTime.now();
 
+    @Nullable
     private LocalDateTime passedDataTime;
 
 //    private Integer rootId;

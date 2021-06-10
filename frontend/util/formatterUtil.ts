@@ -1,7 +1,9 @@
 import {GridColumnElement, GridItemModel} from "@vaadin/vaadin-grid";
 import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
+import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
+import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
-const dateTimeOptions = {
+const _dateTimeOptions = {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
@@ -19,24 +21,16 @@ function boolToIconRender(root: HTMLElement, column?: GridColumnElement, model?:
     }
 }
 
-function dateFormatRender(root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) {
-    if (!root.firstElementChild && model !== undefined) {
-        const lastAct = new Date((<UserModel>model.item).lastActivity.toString());
-        root.innerHTML = lastAct.toLocaleDateString("ru");
+function dateTimeRenderer<T extends ModelConstructor<T, AbstractModel<T>>>(root: HTMLElement, model: GridItemModel | undefined, field: String, options?: DateTimeFormatOptions): void {
+    if (model !== undefined && !root.firstElementChild) {
+        // @ts-ignore
+        const param = (<T>model.item)[field];
+        if (param !== null) {
+            const passedDataTime = new Date(param.toString());
+            root.innerHTML = passedDataTime.toLocaleDateString("ru", options);
+        }
     }
 }
 
-function dateTimeFormatRender(root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) {
-    if (!root.firstElementChild && model !== undefined) {
-        const lastAct = new Date((<UserModel>model.item).lastActivity.toString());
-        root.innerHTML = lastAct.toLocaleDateString("ru", dateTimeOptions);
-    }
-}
-
-const boolRenderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => boolToIconRender(root, column, model);
-const dateRenderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => dateFormatRender(root, column, model);
-const dateTimeRenderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => dateTimeFormatRender(root, column, model);
-
-export {boolRenderer};
-export {dateRenderer};
 export {dateTimeRenderer};
+export {_dateTimeOptions};

@@ -52,7 +52,8 @@
     "lit-element": "2.5.1",
     "lit-html": "1.4.1",
     "lumo-css-framework": "^3.0.11",
-    "mobx": "^6.1.5"
+    "mobx": "^6.1.5",
+    "swiper": "^6.7.0"
   },
   "devDependencies": {
     "@types/validator": "13.1.0",

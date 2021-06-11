@@ -1,3 +1,5 @@
+
+
 list-view {
   display: block;
 }
@@ -16,4 +18,9 @@ list-view contact-form {
   list-view.editing contact-form {
     width: 100%;
   }
+}
+
+.swiper-container {
+  width: 600px;
+  height: 300px;
 }

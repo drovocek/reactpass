@@ -1,6 +1,6 @@
 import {GridColumnElement, GridItemModel} from "@vaadin/vaadin-grid";
 import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
-import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
+import {AbstractModel} from "Frontend/../target/flow-frontend/form/Models";
 import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
 const _dateTimeOptions = {
@@ -21,7 +21,7 @@ function boolToIconRender(root: HTMLElement, column?: GridColumnElement, model?:
     }
 }
 
-function dateTimeRenderer<T extends ModelConstructor<T, AbstractModel<T>>>(root: HTMLElement, model: GridItemModel | undefined, field: String, options?: DateTimeFormatOptions): void {
+function dateTimeRenderer<T, U extends AbstractModel<T>>(root: HTMLElement, model: GridItemModel | undefined, field: String, options?: DateTimeFormatOptions): void {
     if (model !== undefined && !root.firstElementChild) {
         // @ts-ignore
         const param = (<T>model.item)[field];
@@ -31,6 +31,7 @@ function dateTimeRenderer<T extends ModelConstructor<T, AbstractModel<T>>>(root:
         }
     }
 }
+
 
 export {dateTimeRenderer};
 export {_dateTimeOptions};

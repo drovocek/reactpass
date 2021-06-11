@@ -9,8 +9,8 @@ import './user-form-view';
 import {userFilterStore} from "Frontend/views/users/user-filter-store";
 import {GeneralRootView} from "Frontend/views/general/general-root-view";
 import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
-import {dateRenderer, dateTimeRenderer} from "Frontend/util/formatterUtil";
-import {GridColumnElement} from "@vaadin/vaadin-grid";
+import {_dateTimeOptions, dateTimeRenderer} from "Frontend/util/formatterUtil";
+import {GridColumnElement, GridItemModel} from "@vaadin/vaadin-grid";
 
 
 @customElement('user-view')
@@ -76,8 +76,12 @@ export class UserView extends GeneralRootView<User> {
 
     firstUpdated() {
         if (this._columns !== undefined) {
-            this._columns[7].renderer = dateRenderer;
-            this._columns[8].renderer = dateTimeRenderer;
+            this._columns[7].renderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => {
+                dateTimeRenderer(root, model, 'regDate');
+            };
+            this._columns[8].renderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => {
+                dateTimeRenderer(root, model, 'lastActivity', _dateTimeOptions);
+            };
         }
     }
 }

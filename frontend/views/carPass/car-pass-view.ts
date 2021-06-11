@@ -9,7 +9,7 @@ import {carPassFilterStore} from "Frontend/views/carPass/car-pass-filter-store";
 import {GeneralRootView} from "Frontend/views/general/general-root-view";
 import CarPass from "Frontend/generated/ru/volkov/getpass/data/entity/CarPass";
 import {GridColumnElement, GridItemModel} from "@vaadin/vaadin-grid";
-import CarPassModel from "Frontend/generated/ru/volkov/getpass/data/entity/CarPassModel";
+import './car-pass-form-view';
 import {_dateTimeOptions, dateTimeRenderer} from "Frontend/util/formatterUtil";
 
 
@@ -60,6 +60,10 @@ export class CarPassView extends GeneralRootView<CarPass> {
                      <vaadin-grid-column path="passedDataTime" auto-width resizable>
                      </vaadin-grid-column>
                  </vaadin-grid>
+                  <car-pass-form-view 
+                 class="flex flex-col spacing-b-s p-m"
+                 ?hidden="${!carPassFilterStore.getSelected()}"
+                 ></car-pass-form-view>
            </div>
          `;
     }
@@ -67,15 +71,15 @@ export class CarPassView extends GeneralRootView<CarPass> {
     firstUpdated() {
         if (this._columns !== undefined) {
             this._columns[3].renderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => {
-                dateTimeRenderer<CarPassModel>(root, model, 'arrivalDate');
+                dateTimeRenderer(root, model, 'arrivalDate');
             };
 
             this._columns[4].renderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => {
-                dateTimeRenderer<CarPassModel>(root, model, 'regDataTime', _dateTimeOptions);
+                dateTimeRenderer(root, model, 'regDataTime', _dateTimeOptions);
             };
 
             this._columns[5].renderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => {
-                dateTimeRenderer<CarPassModel>(root, model, 'passedDataTime', _dateTimeOptions);
+                dateTimeRenderer(root, model, 'passedDataTime', _dateTimeOptions);
             };
         }
     }

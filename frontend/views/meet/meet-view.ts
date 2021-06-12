@@ -1,43 +1,60 @@
-import {customElement, html} from 'lit-element';
+import {customElement, html, query} from 'lit-element';
 import "@vaadin/vaadin-text-field";
 import "@vaadin/vaadin-button";
 import "@vaadin/vaadin-grid";
 import "@vaadin/vaadin-grid/src/vaadin-grid-column";
 import "@vaadin/vaadin-notification";
 import "@vaadin/vaadin-icons";
-import Swiper from 'swiper';
+import "@vaadin/vaadin-date-picker";
+import '@polymer/paper-card/paper-card';
+import '@polymer/paper-button/paper-button';
+import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-swipeable-container/iron-swipeable-container.js';
 import {View} from '../../views/view';
-import {listViewStore} from "Frontend/views/list/list-view-store";
+import '@polymer/iron-icon/iron-icon'
+import '@polymer/iron-list/iron-list.js';
+import {carPassStore} from "Frontend/stores/app-store";
 
 @customElement('meet-view')
 export class MeetView extends View {
 
-    private swiper: Swiper | undefined;
+    @query('iron-swipeable-container')
+    _swiperContainer: HTMLElement | undefined;
 
     //html
     render() {
         return html`
-           <!-- Slider main container -->
-            <div class="swiper-container">
-              <!-- Additional required wrapper -->
-              <div class="swiper-wrapper">
-                <!-- Slides -->
-                <div class="swiper-slide">Destroy</div>
-                <div class="swiper-slide">New</div>
-                <div class="swiper-slide">Passed</div>
-                ...
-              </div>
-            </div>
+                    <iron-swipeable-container 
+                       text-align="center" auto-width
+                       @iron-swipe="${this._handleSwipe}"
+                       horizontal>
+                    </iron-swipeable-container>
          `;
     }
 
     firstUpdated() {
-        this.swiper = new Swiper('.swiper-container', {
-            // Optional parameters
-            direction: 'horizontal',
-            loop: true,
-        });
+        if (this._swiperContainer !== undefined) {
+            console.log(this._swiperContainer)
+            console.log(Object.keys(this._swiperContainer))
+            console.log(carPassStore.getGridData().length);
+            carPassStore.getGridData().forEach(itm => {
+                console.log(itm);
+                const child = document.createElement('div');
+                child.innerHTML = `
+                    <paper-card id=${itm.id}>
+                        <div class="card-content">
+                         <vaadin-checkbox checked=${itm.passed}></vaadin-checkbox>
+                         ___ ${itm.regNum} ___   ${itm.arrivalDate}
+                        </div>
+                    </paper-card>`;
+                if (this._swiperContainer !== undefined) {
+                    this._swiperContainer.appendChild(child);
+                }
+            })
+        }
     }
+
     connectedCallback() {
         super.connectedCallback();
         this.classList.add(
@@ -49,12 +66,15 @@ export class MeetView extends View {
             'w-full',
             'h-full'
         );
-        this.autorun(() => {
-            if (listViewStore.selectedContact) {
-                this.classList.add("editing");
-            } else {
-                this.classList.remove("editing");
-            }
-        });
+    }
+
+    _handleSwipe(e: any) {
+        console.log("Handle Swipe", e);
     }
 }
+
+
+// icons:check-box-outline-blank
+// icons:check-box
+// icons:pan-tool
+// icons:remove-circle

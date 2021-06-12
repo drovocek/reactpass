@@ -1,0 +1,86 @@
+
+.swiper-container {
+    width: 100%;
+    /*width: 600px;*/
+    /*height: 300px;*/
+    /*border: black;*/
+}
+
+
+element-card {
+    width:450px;
+    --imgcover-max-width: 10px;
+            --imgcover-opacity : 10px;
+            --fsize-element-title : 10px;
+            --fsize-element-desc : 10px;
+            /*--fsize-element-base : 150px;*/
+            --font-size: 10px;
+
+
+    /*width: 410px;*/
+    /*--card-height: 16rem;*/
+    /*--card-height: 50px;*/
+    /*--card-background-color: #ffffff;*/
+    /*--card-border: #ff7900 solid 5px;*/
+    /*--card-margin: 1.5rem 0.7rem;*/
+    /*--card-padding: 1.5rem 0;*/
+    /*--card-title-padding-bottom: 0.75rem;*/
+    /*--card-title-size: 24px;*/
+    /*--card-title-color: #212121;*/
+    /*--card-description-size: 16px;*/
+    /*--card-description-color: #575756;*/
+    /*--card-icon-size: 5.5rem;*/
+    /*--card-icon-color: #FF7900;*/
+}
+
+/*.swiper-wrapper {*/
+/*    width: 600px;*/
+/*    !*height: 300px;*!*/
+/*    !*background: #c4b0b0;*!*/
+/*}*/
+
+/*body {*/
+/*    position: relative;*/
+/*    height: 100%;*/
+/*}*/
+
+/*body {*/
+/*    background: #eee;*/
+/*    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;*/
+/*    font-size: 14px;*/
+/*    color: #000;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*.swiper-container {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+
+/*.swiper-slide {*/
+/*    text-align: center;*/
+/*    font-size: 18px;*/
+/*    background: #fff;*/
+
+/*    !* Center slide text vertically *!*/
+/*    display: -webkit-box;*/
+/*    display: -ms-flexbox;*/
+/*    display: -webkit-flex;*/
+/*    display: flex;*/
+/*    -webkit-box-pack: center;*/
+/*    -ms-flex-pack: center;*/
+/*    -webkit-justify-content: center;*/
+/*    justify-content: center;*/
+/*    -webkit-box-align: center;*/
+/*    -ms-flex-align: center;*/
+/*    -webkit-align-items: center;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.swiper-slide img {*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    object-fit: cover;*/
+/*}*/

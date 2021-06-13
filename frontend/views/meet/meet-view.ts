@@ -14,7 +14,8 @@ import '@polymer/iron-swipeable-container/iron-swipeable-container.js';
 import {View} from '../../views/view';
 import '@polymer/iron-icon/iron-icon'
 import '@polymer/iron-list/iron-list.js';
-import {carPassStore} from "Frontend/stores/app-store";
+import CarPass from "Frontend/generated/ru/volkov/getpass/data/entity/CarPass";
+import {meetFilterStore} from "Frontend/views/meet/meet-filter-store";
 
 @customElement('meet-view')
 export class MeetView extends View {
@@ -35,24 +36,61 @@ export class MeetView extends View {
 
     firstUpdated() {
         if (this._swiperContainer !== undefined) {
-            console.log(this._swiperContainer)
-            console.log(Object.keys(this._swiperContainer))
-            console.log(carPassStore.getGridData().length);
-            carPassStore.getGridData().forEach(itm => {
-                console.log(itm);
-                const child = document.createElement('div');
-                child.innerHTML = `
-                    <paper-card id=${itm.id}>
-                        <div class="card-content">
-                         <vaadin-checkbox checked=${itm.passed}></vaadin-checkbox>
-                         ___ ${itm.regNum} ___   ${itm.arrivalDate}
-                        </div>
-                    </paper-card>`;
-                if (this._swiperContainer !== undefined) {
-                    this._swiperContainer.appendChild(child);
-                }
+            meetFilterStore.filtered.forEach(item => {
+                this.addNewPaperCard(item);
             })
         }
+    }
+
+    addNewPaperCard(item: CarPass): void {
+        const paperCardCover = document.createElement('div');
+        paperCardCover.innerHTML = `
+                    <paper-card>
+                        <div class="card-content">
+                         <vaadin-checkbox id=${item.id}></vaadin-checkbox>
+                         ___ ${item.regNum} ___  ${item.arrivalDate}
+                        </div>
+                    </paper-card>`;
+        const checkbox = paperCardCover.querySelector('vaadin-checkbox');
+        if (checkbox != null) {
+            if (item.passed) {
+                checkbox.setAttribute('checked', '');
+            }
+            checkbox.addEventListener('change', e => this._handleCheck(e));
+        }
+        if (this._swiperContainer !== undefined) {
+            this._swiperContainer.appendChild(paperCardCover);
+        }
+    }
+
+    _handleSwipe(e: CustomEvent): void {
+        console.log("_handleSwipe", e);
+        const targetCheckbox = e.detail.target.querySelector('vaadin-checkbox');
+        this._changeEnable(targetCheckbox.id).then(() => {
+            const updated = meetFilterStore.filtered.find(itm => itm.id === Number.parseInt(targetCheckbox.id));
+            console.log(updated)
+            if (updated !== undefined) {
+                this.addNewPaperCard(updated);
+                this._sort();
+            }
+        });
+    }
+
+    _handleCheck(e: Event): void {
+        console.log("_handleSwipe", e);
+        if (e.target !== null) {
+            // @ts-ignore
+            this._changeEnable(e.target.id).then(() => this._sort());
+        }
+    }
+
+    _changeEnable(id: number): Promise<void> {
+        console.log("_changeEnable", id);
+        return meetFilterStore.changeEnable(id);
+    }
+
+    _sort() {
+        meetFilterStore.sortByPassed();
     }
 
     connectedCallback() {
@@ -67,14 +105,4 @@ export class MeetView extends View {
             'h-full'
         );
     }
-
-    _handleSwipe(e: any) {
-        console.log("Handle Swipe", e);
-    }
 }
-
-
-// icons:check-box-outline-blank
-// icons:check-box
-// icons:pan-tool
-// icons:remove-circle

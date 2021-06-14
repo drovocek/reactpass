@@ -22,7 +22,6 @@ export class MeetView extends View {
         super();
     }
 
-    //html
     render() {
         return html`
                     <dom-module id="checkbox-button-icon-color" theme-for="vaadin-checkbox">

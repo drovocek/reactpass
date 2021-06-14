@@ -62,9 +62,9 @@ export class UiStore {
     private setLoggedIn(loggedIn: boolean) {
         this.loggedIn = loggedIn;
         if (loggedIn) {
-            crmStore.initFromServer();
             usersStore.initFromServer();
             carPassStore.initFromServer();
+            crmStore.initFromServer();
         }
     }
 
@@ -88,11 +88,10 @@ export class UiStore {
     private setOffline(offline: boolean) {
         // Refresh from server when going online
         if (this.offline && !offline) {
-            crmStore.initFromServer();
             usersStore.initFromServer();
             carPassStore.initFromServer();
+            crmStore.initFromServer();
         }
         this.offline = offline;
     }
-
 }

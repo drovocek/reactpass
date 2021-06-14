@@ -2,7 +2,7 @@ import {customElement, html, queryAll} from 'lit-element';
 import "@vaadin/vaadin-text-field";
 import "@vaadin/vaadin-button";
 import "@vaadin/vaadin-grid";
-import "@vaadin/vaadin-grid/src/vaadin-grid-column";
+import "@vaadin/vaadin-grid/src/vaadin-grid-sort-column";
 import "@vaadin/vaadin-notification";
 import "@vaadin/vaadin-icons";
 import './user-form-view';
@@ -16,7 +16,7 @@ import {GridColumnElement, GridItemModel} from "@vaadin/vaadin-grid";
 @customElement('user-view')
 export class UserView extends GeneralRootView<User> {
 
-    @queryAll('vaadin-grid-column')
+    @queryAll('vaadin-grid-sort-column')
     _columns: GridColumnElement[] | undefined;
 
     constructor() {
@@ -44,27 +44,27 @@ export class UserView extends GeneralRootView<User> {
                theme="row-stripes" 
                column-reordering-allowed 
                multi-sort>
-                     <vaadin-grid-column path="enabled" text-align="center" auto-width resizable>
+                     <vaadin-grid-sort-column path="enabled" text-align="center" auto-width resizable>
                      <template>
                          <vaadin-checkbox theme="checkbox-custom" checked="{{item.enabled}}" disabled></vaadin-checkbox>
                      </template>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="id" auto-width resizable>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="role.name" auto-width resizable>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="fullName" auto-width resizable> 
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="userName" auto-width resizable>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="email" auto-width resizable>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="phone" auto-width resizable>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="regDate" auto-width resizable>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="lastActivity" auto-width resizable>
-                     </vaadin-grid-column>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="id" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="role.name" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="fullName" auto-width resizable> 
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="userName" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="email" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="phone" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="regDate" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="lastActivity" auto-width resizable>
+                     </vaadin-grid-sort-column>
                  </vaadin-grid>
                  <user-form-view 
                  class="flex flex-col spacing-b-s p-m"

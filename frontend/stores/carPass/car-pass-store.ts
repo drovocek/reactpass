@@ -30,7 +30,7 @@ export class CarPassStore implements EntityRootStore<CarPass> {
         );
 
         runInAction(() => {
-            this.gridData = data.carPasses;
+            this.gridData = data.carPasses
         });
     }
 
@@ -44,18 +44,6 @@ export class CarPassStore implements EntityRootStore<CarPass> {
 
     getGridData() {
         return this.baseStore.gridData;
-    }
-
-    sortByPassed() {
-        this.gridData = this.baseStore.gridData.sort((o1, o2) => {
-            if (o1.passed === o2.passed) {
-                return 0;
-            } else if (o1.passed) {
-                return -1;
-            } else if (o2.passed) {
-                return 1;
-            }
-        });
     }
 
     async changeEnable(id: number): Promise<void> {

@@ -3,7 +3,7 @@ import {
     login as serverLogin,
     logout as serverLogout,
 } from "@vaadin/flow-frontend";
-import {crmStore, usersStore} from "./app-store";
+import {carPassStore, crmStore, usersStore} from "./app-store";
 import {
     ConnectionState,
     ConnectionStateStore,
@@ -64,6 +64,7 @@ export class UiStore {
         if (loggedIn) {
             crmStore.initFromServer();
             usersStore.initFromServer();
+            carPassStore.initFromServer();
         }
     }
 
@@ -89,6 +90,7 @@ export class UiStore {
         if (this.offline && !offline) {
             crmStore.initFromServer();
             usersStore.initFromServer();
+            carPassStore.initFromServer();
         }
         this.offline = offline;
     }

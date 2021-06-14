@@ -2,7 +2,7 @@ import {customElement, html, queryAll} from 'lit-element';
 import "@vaadin/vaadin-text-field";
 import "@vaadin/vaadin-button";
 import "@vaadin/vaadin-grid";
-import "@vaadin/vaadin-grid/src/vaadin-grid-column";
+import "@vaadin/vaadin-grid/src/vaadin-grid-sort-column";
 import "@vaadin/vaadin-notification";
 import "@vaadin/vaadin-icons";
 import {carPassFilterStore} from "Frontend/views/carPass/car-pass-filter-store";
@@ -16,7 +16,7 @@ import {_dateTimeOptions, dateTimeRenderer} from "Frontend/util/formatterUtil";
 @customElement('car-pass-view')
 export class CarPassView extends GeneralRootView<CarPass> {
 
-    @queryAll('vaadin-grid-column')
+    @queryAll('vaadin-grid-sort-column')
     _columns: GridColumnElement[] | undefined;
 
     constructor() {
@@ -44,21 +44,21 @@ export class CarPassView extends GeneralRootView<CarPass> {
                theme="row-stripes" 
                column-reordering-allowed 
                multi-sort>
-                     <vaadin-grid-column path="passed" text-align="center" auto-width resizable>
+                     <vaadin-grid-sort-column path="passed" text-align="center" auto-width resizable>
                      <template>
                          <vaadin-checkbox theme="checkbox-custom" checked="{{item.passed}}" disabled></vaadin-checkbox>
                      </template>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="id" auto-width resizable>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="regNum" auto-width resizable>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="arrivalDate" auto-width resizable> 
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="regDataTime" auto-width resizable>
-                     </vaadin-grid-column>
-                     <vaadin-grid-column path="passedDataTime" auto-width resizable>
-                     </vaadin-grid-column>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="id" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="regNum" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="arrivalDate" auto-width resizable> 
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="regDataTime" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="passedDataTime" auto-width resizable>
+                     </vaadin-grid-sort-column>
                  </vaadin-grid>
                   <car-pass-form-view 
                  class="flex flex-col spacing-b-s p-m"

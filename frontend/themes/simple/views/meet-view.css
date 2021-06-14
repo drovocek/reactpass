@@ -6,6 +6,10 @@
     /*border: black;*/
 }
 
+paper-card{
+    margin: 5px;
+}
+
 
 element-card {
     width:450px;

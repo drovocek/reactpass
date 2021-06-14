@@ -75,9 +75,10 @@ public class DataGenerator {
             ExampleDataGenerator<CarPass> carPassGenerator = new ExampleDataGenerator<>(CarPass.class,
                     LocalDateTime.now());
             carPassGenerator.setData(CarPass::setRegNum, DataType.IBAN);
-            carPassGenerator.setData(CarPass::setArrivalDate, DataType.DATE_LAST_7_DAYS);
+            carPassGenerator.setData(CarPass::setArrivalDate, DataType.DATE_NEXT_7_DAYS);
 
             List<CarPass> carPasses = carPassGenerator.create(50, seed);
+            carPasses.forEach(itm -> itm.setRegNum(itm.getRegNum().replaceAll(" ","").substring(0, 8)));
             carPassRepository.saveAll(carPasses);
 
             users.get(0).setRole(roles.get(0));

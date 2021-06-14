@@ -32,6 +32,17 @@ function dateTimeRenderer<T, U extends AbstractModel<T>>(root: HTMLElement, mode
     }
 }
 
-
 export {dateTimeRenderer};
 export {_dateTimeOptions};
+
+function toClearDate(stringDate?: string): Date {
+    const dirtyDate = (stringDate) ? new Date(stringDate) : new Date();
+    return new Date(dirtyDate.getFullYear(), dirtyDate.getMonth(), dirtyDate.getDate());
+}
+
+function toClearTime(stringDate?: string): number {
+    return toClearDate(stringDate).getTime();
+}
+
+export {toClearDate};
+export {toClearTime};

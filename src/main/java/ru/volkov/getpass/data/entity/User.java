@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Formula;
 import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -23,19 +26,45 @@ public class User extends AbstractEntity implements Serializable {
     @ManyToOne
     private Role role;
 
+    @NotNull
     private String fullName;
 
+    @NotNull
     private String userName;
 
+    @Email
+    @NotNull
     private String email;
 
+    @NotNull
     private String phone;
 
-    private Boolean enabled = true;
+    @NotNull
+    private Boolean enabled;
 
-    private LocalDateTime regDate = LocalDateTime.now();
+    @NotNull
+    private LocalDateTime regDate;
 
+    @NotNull
     private LocalDateTime lastActivity = LocalDateTime.now();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User creator;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User company;
+
+//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = creator.id)")
+//    private String creatorName;
+//
+//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = company.id)")
+//    private String companyName;
+//
+//    @Formula("(SELECT COUNT(*) FROM User u WHERE u.creator.id = id)")
+//    private int userCreatedCount;
+//
+//    @Formula("(SELECT COUNT(*) FROM Car_Pass cp WHERE cp.creator.id = id)")
+//    private int passesCreatedCount;
 
     public User(String fullName, String userName, String email, String phone) {
         this.fullName = fullName;
@@ -43,16 +72,6 @@ public class User extends AbstractEntity implements Serializable {
         this.email = email;
         this.phone = phone;
     }
-
-//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = root_id)")
-//    private String rootName;
-//
-//    @Formula("(SELECT COUNT(*) FROM User u WHERE u.root_id = id)")
-//    private int childrenCount;
-//
-//    @Formula("(SELECT COUNT(*) FROM Car_Pass cp WHERE cp.user_id = id)")
-//    private int passCount;
-//
 
 //    private Integer rootId;
 

@@ -63,22 +63,42 @@ public class DataGenerator {
                     .saveAll(Stream.of("Owner", "Guard", "Company", "Employee")
                             .map(Role::new).collect(Collectors.toList()));
 
-            List<User> users = Arrays.asList(
-                    new User("OOO OWNER", "owner", "owner@email.ru", "+7 (777) 777-77-77"),
-                    new User("Guard Vasia", "guard", "guard@email.ru", "+6 (666) 666-66-66"),
-                    new User("OOO COMPANY", "company", "company@email.ru", "+5 (555) 555-55-55"),
-                    new User("OOO ROGA&COPITA", "rogacopita", "rogacopita@email.ru", "+8 (888) 888-88-88"),
-                    new User("Employee Ivan", "employee", "employee@email.ru", "+4 (444) 444-44-44"),
-                    new User("Anansky Andrey", "mhsn", "mhsn@email.ru", "+9 (999) 999-99-99")
-            );
+            User user1 = new User("OOO OWNER", "owner", "owner@email.ru", "+7 (777) 777-77-77");
+            User user2 = new User("Guard Vasia", "guard", "guard@email.ru", "+6 (666) 666-66-66");
+            User user3 = new User("OOO COMPANY", "company", "company@email.ru", "+5 (555) 555-55-55");
+            User user4 = new User("OOO ROGA&COPITA", "rogacopita", "rogacopita@email.ru", "+8 (888) 888-88-88");
+            User user5 = new User("Employee Ivan", "employee", "employee@email.ru", "+4 (444) 444-44-44");
+            User user6 = new User("Anansky Andrey", "mhsn", "mhsn@email.ru", "+9 (999) 999-99-99");
+
+            user1.setCompany(null);
+            user1.setCreator(null);
+
+            user2.setCompany(user1);
+            user2.setCreator(user1);
+
+            user3.setCompany(null);
+            user3.setCreator(user1);
+
+            user4.setCompany(null);
+            user4.setCreator(user1);
+
+            user5.setCompany(user3);
+            user5.setCreator(user3);
+
+            user6.setCompany(user4);
+            user6.setCreator(user4);
+
+            List<User> users = Arrays.asList(user1, user2, user3, user4, user5, user6);
+            users.forEach(user -> user.setRegDate(LocalDateTime.now()));
 
             ExampleDataGenerator<CarPass> carPassGenerator = new ExampleDataGenerator<>(CarPass.class,
                     LocalDateTime.now());
             carPassGenerator.setData(CarPass::setRegNum, DataType.IBAN);
             carPassGenerator.setData(CarPass::setArrivalDate, DataType.DATE_NEXT_7_DAYS);
+            carPassGenerator.setData(CarPass::setRegDataTime, DataType.DATETIME_LAST_7_DAYS);
 
             List<CarPass> carPasses = carPassGenerator.create(50, seed);
-            carPasses.forEach(itm -> itm.setRegNum(itm.getRegNum().replaceAll(" ","").substring(0, 8)));
+            carPasses.forEach(itm -> itm.setRegNum(itm.getRegNum().replaceAll(" ", "").substring(0, 8)));
             carPassRepository.saveAll(carPasses);
 
             users.get(0).setRole(roles.get(0));

@@ -3,14 +3,14 @@ package ru.volkov.getpass.data.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.Formula;
-import javax.annotation.Nullable;
+import org.springframework.lang.Nullable;
 import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,39 +18,38 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-//@ToString(exclude = "user")
 @Entity
 public class CarPass extends AbstractEntity implements Serializable {
 
-    private boolean passed;
+    @NotNull
+    private Boolean passed;
 
+    @NotNull
     private String regNum;
 
     private LocalDate arrivalDate;
 
-    private LocalDateTime regDataTime = LocalDateTime.now();
+    @NotNull
+    private LocalDateTime regDataTime;
 
-    @Nullable
     private LocalDateTime passedDataTime;
 
-//    private Integer rootId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User creator;
 
-//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = user_id)")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User company;
+
+//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = creator.id)")
 //    private String creatorName;
 //
-//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = root_id)")
-//    private String rootName;
+//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = company.id)")
+//    private String companyName;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private User user;
-
-//    private boolean enabled = true;
-//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = root_id)")
-//    private String fullName;
-
-    public CarPass(String regNum, LocalDate arrivalDate) {
+    public CarPass(@Nullable String regNum, LocalDate arrivalDate, LocalDateTime regDataTime) {
         this.regNum = regNum;
         this.arrivalDate = arrivalDate;
+        this.regDataTime = regDataTime;
     }
 //
 //    public CarPass(Integer rootId, String regNum, LocalDate arrivalDate) {

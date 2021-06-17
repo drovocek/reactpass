@@ -1,5 +1,5 @@
-import CarPass from "Frontend/generated/ru/volkov/getpass/data/entity/CarPass";
-import CarPassModel from "Frontend/generated/ru/volkov/getpass/data/entity/CarPassModel";
+import CarPass from "Frontend/generated/ru/volkov/getpass/data/to/CarPassTo";
+import CarPassModel from "Frontend/generated/ru/volkov/getpass/data/to/CarPassToModel";
 import {carPassStore} from 'Frontend/stores/app-store';
 import {GeneralFilterStore} from "Frontend/views/general/general-filter-store";
 import CarPassData from "Frontend/generated/ru/volkov/getpass/data/endpoint/CarPassEndpoint/CarPassData";

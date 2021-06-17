@@ -1,12 +1,12 @@
-package ru.volkov.getpass.data.endpoint;
+package ru.volkov.getpass.data.service;
 
-import com.vaadin.flow.server.connect.Endpoint;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.vaadin.artur.helpers.CrudService;
+import ru.volkov.getpass.data.endpoint.CarPassEndpoint;
 import ru.volkov.getpass.data.entity.CarPass;
 import ru.volkov.getpass.data.repository.CarPassRepository;
 import ru.volkov.getpass.data.to.CarPassTo;
@@ -20,15 +20,20 @@ import static ru.volkov.getpass.data.to.util.CarPassToUtil.asEntity;
 import static ru.volkov.getpass.data.to.util.CarPassToUtil.asTo;
 
 @RequiredArgsConstructor
-@Endpoint
-public class CarPassEndpoint {
+@Service
+public class CarPassService extends CrudService<CarPass, Integer> {
 
-    private final CarPassRepository carPassRepository;
+    private final CarPassRepository repository;
+
+    @Override
+    protected JpaRepository<CarPass, Integer> getRepository() {
+        return repository;
+    }
 
     public CarPassData getCarPassData() {
         CarPassData carPassData = new CarPassData();
         carPassData.carPasses =
-                carPassRepository.findAll().stream()
+                repository.findAll().stream()
                         .map(CarPassToUtil::asTo)
                         .collect(Collectors.toList());
         return carPassData;
@@ -36,33 +41,25 @@ public class CarPassEndpoint {
 
     @Transactional
     public CarPassTo saveCarPass(CarPassTo carPassTo) {
-        System.out.println("!!!!!!!!!!!!");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        System.out.println(currentPrincipalName);
-        System.out.println(((UserDetails)authentication.getPrincipal()).getUsername());
         CarPass carPass = asEntity(carPassTo);
         if (carPassTo.isNew()) {
 
         } else {
-            CarPass proxy = carPassRepository.getOne(carPassTo.getId());
+            CarPass proxy = repository.getOne(carPassTo.getId());
             carPass.setCreator(proxy.getCreator());
             carPass.setCompany(proxy.getCompany());
         }
-        CarPass save = carPassRepository.save(carPass);
-        System.out.println(save);
-        CarPassTo carPassTo1 = asTo(save);
-        System.out.println(carPassTo1);
-        return carPassTo1;
+
+        return asTo(repository.save(carPass));
     }
 
     public void deleteCarPass(Integer carPassId) {
-        carPassRepository.deleteById(carPassId);
+        repository.deleteById(carPassId);
     }
 
     @Transactional
     public Integer changeEnable(Integer carPassId) {
-        Optional<CarPass> byId = carPassRepository.findById(carPassId);
+        Optional<CarPass> byId = repository.findById(carPassId);
         if (byId.isEmpty()) {
             return null;
         } else {

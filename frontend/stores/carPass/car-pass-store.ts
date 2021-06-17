@@ -1,4 +1,4 @@
-import CarPass from "Frontend/generated/ru/volkov/getpass/data/entity/CarPass";
+import CarPass from "Frontend/generated/ru/volkov/getpass/data/to/CarPassTo";
 import CarPassData from "Frontend/generated/ru/volkov/getpass/data/endpoint/CarPassEndpoint/CarPassData";
 import * as endpoint from 'Frontend/generated/CarPassEndpoint';
 import CarPassDataModel from "Frontend/generated/ru/volkov/getpass/data/endpoint/CarPassEndpoint/CarPassDataModel";

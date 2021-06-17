@@ -7,8 +7,8 @@ import {Binder, field} from 'Frontend/../target/flow-frontend/form';
 import {carPassFilterStore} from './car-pass-filter-store';
 import {uiStore} from 'Frontend/stores/app-store';
 import {GeneralFormView} from "Frontend/views/general/general-form-view";
-import CarPass from "Frontend/generated/ru/volkov/getpass/data/entity/CarPass";
-import CarPassModel from "Frontend/generated/ru/volkov/getpass/data/entity/CarPassModel";
+import CarPass from "Frontend/generated/ru/volkov/getpass/data/to/CarPassTo";
+import CarPassModel from "Frontend/generated/ru/volkov/getpass/data/to/CarPassToModel";
 
 @customElement('car-pass-form-view')
 export class CarPassFormView extends GeneralFormView<CarPass> {

@@ -4,7 +4,7 @@ import "@vaadin/vaadin-date-picker";
 import "@vaadin/vaadin-notification";
 import '@polymer/paper-card/paper-card';
 import '@polymer/iron-swipeable-container/iron-swipeable-container.js';
-import CarPass from "Frontend/generated/ru/volkov/getpass/data/entity/CarPass";
+import CarPass from "Frontend/generated/ru/volkov/getpass/data/to/CarPassTo";
 import {meetFilterStore} from "Frontend/views/meet/meet-filter-store";
 import {IronSwipeableContainerElement} from "@polymer/iron-swipeable-container";
 import {carPassStore, uiStore} from "Frontend/stores/app-store";

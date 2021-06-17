@@ -56,4 +56,18 @@ public class CarPass extends AbstractEntity implements Serializable {
 //        this.regNum = regNum;
 //        this.arrivalDate = arrivalDate;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "CarPass{" +
+                "passed=" + passed +
+                ", regNum='" + regNum + '\'' +
+                ", arrivalDate=" + arrivalDate +
+                ", regDataTime=" + regDataTime +
+                ", passedDataTime=" + passedDataTime +
+                ", creator=" + creator.getId() +
+                ", company=" + company.getId() +
+                '}';
+    }
 }

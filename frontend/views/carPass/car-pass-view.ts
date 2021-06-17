@@ -7,7 +7,7 @@ import "@vaadin/vaadin-notification";
 import "@vaadin/vaadin-icons";
 import {carPassFilterStore} from "Frontend/views/carPass/car-pass-filter-store";
 import {GeneralRootView} from "Frontend/views/general/general-root-view";
-import CarPass from "Frontend/generated/ru/volkov/getpass/data/entity/CarPass";
+import CarPass from "Frontend/generated/ru/volkov/getpass/data/to/CarPassTo";
 import {GridColumnElement, GridItemModel} from "@vaadin/vaadin-grid";
 import './car-pass-form-view';
 import {_dateTimeOptions, dateTimeRenderer} from "Frontend/util/formatterUtil";

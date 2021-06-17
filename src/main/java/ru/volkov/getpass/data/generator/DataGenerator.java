@@ -99,7 +99,18 @@ public class DataGenerator {
 
             List<CarPass> carPasses = carPassGenerator.create(50, seed);
             carPasses.forEach(itm -> itm.setRegNum(itm.getRegNum().replaceAll(" ", "").substring(0, 8)));
-            carPassRepository.saveAll(carPasses);
+            carPasses.stream().skip(0).limit(20).forEach(cp->{
+                cp.setCompany(user3);
+                cp.setCreator(user5);
+            });
+            carPasses.stream().skip(20).limit(20).forEach(cp->{
+                cp.setCompany(user4);
+                cp.setCreator(user6);
+            });
+            carPasses.stream().skip(40).limit(20).forEach(cp->{
+                cp.setCompany(user1);
+                cp.setCreator(user2);
+            });
 
             users.get(0).setRole(roles.get(0));
             users.get(1).setRole(roles.get(1));
@@ -109,9 +120,9 @@ public class DataGenerator {
             users.get(5).setRole(roles.get(3));
 
             userRepository.saveAll(users);
+            carPassRepository.saveAll(carPasses);
 
             logger.info("Generated demo data");
         };
     }
-
 }

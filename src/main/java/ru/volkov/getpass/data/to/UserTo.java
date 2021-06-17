@@ -28,8 +28,7 @@ public class UserTo {
     @NotNull
     private String phone;
 
-    @NotNull
-    private Boolean enabled;
+    private boolean enabled;
 
     @NotNull
     private LocalDateTime regDate;

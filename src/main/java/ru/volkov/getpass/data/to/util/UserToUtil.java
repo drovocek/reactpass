@@ -14,7 +14,7 @@ public class UserToUtil {
         entity.setFullName(to.getFullName());
         entity.setUserName(to.getUserName());
         entity.setEmail(to.getEmail());
-        entity.setEnabled(to.getEnabled());
+        entity.setEnabled(to.isEnabled());
         entity.setRegDate(to.getRegDate());
         entity.setLastActivity(to.getLastActivity());
         return entity;
@@ -27,7 +27,7 @@ public class UserToUtil {
         to.setFullName(entity.getFullName());
         to.setUserName(entity.getUserName());
         to.setEmail(entity.getEmail());
-        to.setEnabled(entity.getEnabled());
+        to.setEnabled(entity.isEnabled());
         to.setRegDate(entity.getRegDate());
         to.setLastActivity(entity.getLastActivity());
         return to;

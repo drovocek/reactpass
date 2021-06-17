@@ -11,8 +11,7 @@ public class CarPassTo {
 
     private Integer id;
 
-    @NotNull
-    private Boolean passed;
+    private boolean passed;
 
     @NotNull
     private String regNum;

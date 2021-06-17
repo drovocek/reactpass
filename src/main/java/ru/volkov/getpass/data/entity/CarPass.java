@@ -21,8 +21,7 @@ import java.time.LocalDateTime;
 @Entity
 public class CarPass extends AbstractEntity implements Serializable {
 
-    @NotNull
-    private Boolean passed;
+    private boolean passed;
 
     @NotNull
     private String regNum;

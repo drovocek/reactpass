@@ -39,8 +39,7 @@ public class User extends AbstractEntity implements Serializable {
     @NotNull
     private String phone;
 
-    @NotNull
-    private Boolean enabled;
+    private boolean enabled;
 
     @NotNull
     private LocalDateTime regDate;

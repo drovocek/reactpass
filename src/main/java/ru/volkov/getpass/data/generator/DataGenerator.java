@@ -72,21 +72,27 @@ public class DataGenerator {
 
             user1.setCompany(null);
             user1.setCreator(null);
+            user1.setPassword("ownerpass");
 
             user2.setCompany(user1);
             user2.setCreator(user1);
+            user2.setPassword("guardpass");
 
             user3.setCompany(null);
             user3.setCreator(user1);
+            user3.setPassword("companypass");
 
             user4.setCompany(null);
             user4.setCreator(user1);
+            user4.setPassword("rogacopitapass");
 
             user5.setCompany(user3);
             user5.setCreator(user3);
+            user5.setPassword("employeepass");
 
             user6.setCompany(user4);
             user6.setCreator(user4);
+            user6.setPassword("mhsnpass");
 
             List<User> users = Arrays.asList(user1, user2, user3, user4, user5, user6);
             users.forEach(user -> user.setRegDate(LocalDateTime.now()));

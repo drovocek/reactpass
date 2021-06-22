@@ -1,16 +1,19 @@
 package ru.volkov.getpass.data.endpoint;
 
+import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.connect.Endpoint;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import ru.volkov.getpass.data.entity.CarPass;
 import ru.volkov.getpass.data.repository.CarPassRepository;
 import ru.volkov.getpass.data.to.CarPassTo;
 import ru.volkov.getpass.data.to.util.CarPassToUtil;
+import ru.volkov.getpass.security.CustomUserDetails;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,9 +41,15 @@ public class CarPassEndpoint {
     public CarPassTo saveCarPass(CarPassTo carPassTo) {
         System.out.println("!!!!!!!!!!!!");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        System.out.println(currentPrincipalName);
-        System.out.println(((UserDetails)authentication.getPrincipal()).getUsername());
+//        String currentPrincipalName = authentication.getName();
+//        VaadinRequest.getCurrent().getUserPrincipal();
+//        Authentication auth =
+//                SecurityContextHolder.getContext().getAuthentication();
+//        CustomUserDetails myUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Integer userId=myUserDetails.getId();
+//        System.out.println(userId);
+//        System.out.println(authentication.getPrincipal().getClass());
+//        System.out.println( ((CustomUserDetails) authentication.getPrincipal()).getId() );
         CarPass carPass = asEntity(carPassTo);
         if (carPassTo.isNew()) {
 

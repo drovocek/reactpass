@@ -41,6 +41,8 @@ public class User extends AbstractEntity implements Serializable {
 
     private boolean enabled;
 
+    private String password;
+
     @NotNull
     private LocalDateTime regDate;
 

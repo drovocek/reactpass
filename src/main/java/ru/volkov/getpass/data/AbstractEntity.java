@@ -1,11 +1,14 @@
 package ru.volkov.getpass.data;
 
+import org.springframework.data.domain.Persistable;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Serializable, Persistable<Integer> {
 
     @Id
     @GeneratedValue
@@ -38,5 +41,10 @@ public abstract class AbstractEntity {
             return id.equals(other.id);
         }
         return super.equals(other);
+    }
+
+    @Override
+    public boolean isNew() {
+        return id == null;
     }
 }

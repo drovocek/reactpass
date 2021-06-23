@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.vaadin.artur.exampledata.DataType;
 import org.vaadin.artur.exampledata.ExampleDataGenerator;
 import ru.volkov.getpass.data.entity.*;
@@ -21,7 +22,7 @@ import java.util.stream.Stream;
 public class DataGenerator {
 
     @Bean
-    public CommandLineRunner loadData(ContactRepository contactRepository, CompanyRepository companyRepository,
+    public CommandLineRunner loadData(PasswordEncoder passwordEncoder, ContactRepository contactRepository, CompanyRepository companyRepository,
                                       StatusRepository statusRepository, UserRepository userRepository, RoleRepository roleRepository,
                                       CarPassRepository carPassRepository) {
 
@@ -72,27 +73,28 @@ public class DataGenerator {
 
             user1.setCompany(null);
             user1.setCreator(null);
-            user1.setPassword("ownerpass");
+            user1.setEnabled(true);
+            user1.setPassword(passwordEncoder.encode("ownerpass"));
 
             user2.setCompany(user1);
             user2.setCreator(user1);
-            user2.setPassword("guardpass");
+            user2.setPassword(passwordEncoder.encode("guardpass"));
 
             user3.setCompany(null);
             user3.setCreator(user1);
-            user3.setPassword("companypass");
+            user3.setPassword(passwordEncoder.encode("companypass"));
 
             user4.setCompany(null);
             user4.setCreator(user1);
-            user4.setPassword("rogacopitapass");
+            user4.setPassword(passwordEncoder.encode("rogacopitapass"));
 
             user5.setCompany(user3);
             user5.setCreator(user3);
-            user5.setPassword("employeepass");
+            user5.setPassword(passwordEncoder.encode("employeepass"));
 
             user6.setCompany(user4);
             user6.setCreator(user4);
-            user6.setPassword("mhsnpass");
+            user6.setPassword(passwordEncoder.encode("mhsnpass"));
 
             List<User> users = Arrays.asList(user1, user2, user3, user4, user5, user6);
             users.forEach(user -> user.setRegDate(LocalDateTime.now()));
@@ -105,15 +107,15 @@ public class DataGenerator {
 
             List<CarPass> carPasses = carPassGenerator.create(50, seed);
             carPasses.forEach(itm -> itm.setRegNum(itm.getRegNum().replaceAll(" ", "").substring(0, 8)));
-            carPasses.stream().skip(0).limit(20).forEach(cp->{
+            carPasses.stream().skip(0).limit(20).forEach(cp -> {
                 cp.setCompany(user3);
                 cp.setCreator(user5);
             });
-            carPasses.stream().skip(20).limit(20).forEach(cp->{
+            carPasses.stream().skip(20).limit(20).forEach(cp -> {
                 cp.setCompany(user4);
                 cp.setCreator(user6);
             });
-            carPasses.stream().skip(40).limit(20).forEach(cp->{
+            carPasses.stream().skip(40).limit(20).forEach(cp -> {
                 cp.setCompany(user1);
                 cp.setCreator(user2);
             });

@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-public class CarPass extends AbstractEntity implements Serializable {
+public class CarPass extends AbstractEntity{
 
     private boolean passed;
 

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import ru.volkov.getpass.data.entity.User;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class CustomUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 //        Set<Role> roles = user.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
+        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
 //        for (Role role : roles) {
 //            authorities.add(new SimpleGrantedAuthority(role.getName()));
 //        }
@@ -38,7 +37,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return user.getUserName();
     }
 
     @Override

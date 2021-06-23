@@ -1,42 +1,39 @@
 package ru.volkov.getpass.data.to;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.domain.Persistable;
+import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @ToString
-@Data
-public class CarPassTo implements Persistable<Integer> {
-
-    private Integer id;
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+public class CarPassTo extends AbstractEntity {
 
     private boolean passed;
 
     @NotNull
     private String regNum;
 
-    @NotNull
+    @Nullable
     private String creatorName;
 
-    @NotNull
+    @Nullable
     private String companyName;
 
     @NotNull
     private LocalDate arrivalDate;
 
-    @NotNull
+    @Nullable
     private LocalDateTime regDataTime;
 
     @Nullable
     private LocalDateTime passedDataTime;
-
-    @Override
-    public boolean isNew() {
-        return id == null;
-    }
 }

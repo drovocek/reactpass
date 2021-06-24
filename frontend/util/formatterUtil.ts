@@ -1,5 +1,5 @@
 import {GridColumnElement, GridItemModel} from "@vaadin/vaadin-grid";
-import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
+import UserModel from "Frontend/generated/ru/volkov/getpass/data/to/UserToModel";
 import {AbstractModel} from "Frontend/../target/flow-frontend/form/Models";
 import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 

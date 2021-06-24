@@ -42,7 +42,7 @@ public class User extends AbstractEntity {
     private String password;
 
     @NotNull
-    private LocalDateTime regDate;
+    private LocalDateTime regDateTime;
 
     @NotNull
     private LocalDateTime lastActivity = LocalDateTime.now();
@@ -53,12 +53,6 @@ public class User extends AbstractEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private User company;
 
-//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = creator.id)")
-//    private String creatorName;
-//
-//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = company.id)")
-//    private String companyName;
-//
 //    @Formula("(SELECT COUNT(*) FROM User u WHERE u.creator.id = id)")
 //    private int userCreatedCount;
 //

@@ -1,16 +1,20 @@
 package ru.volkov.getpass.data.to;
 
-import lombok.Data;
+import lombok.*;
+import ru.volkov.getpass.data.AbstractEntity;
 import ru.volkov.getpass.data.entity.Role;
 
+import javax.annotation.Nullable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Data
-public class UserTo {
-
-    private Integer id;
+@ToString
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+public class UserTo extends AbstractEntity {
 
     @NotNull
     private Role role;
@@ -18,7 +22,7 @@ public class UserTo {
     @NotNull
     private String fullName;
 
-    @NotNull
+    @Nullable
     private String userName;
 
     @Email
@@ -31,12 +35,14 @@ public class UserTo {
     private boolean enabled;
 
     @NotNull
-    private LocalDateTime regDate;
+    private LocalDateTime regDateTime;
 
     @NotNull
     private LocalDateTime lastActivity;
 
+    @Nullable
     private String creatorName;
 
+    @Nullable
     private String companyName;
 }

@@ -97,13 +97,13 @@ public class DataGenerator {
             user6.setPassword(passwordEncoder.encode("mhsnpass"));
 
             List<User> users = Arrays.asList(user1, user2, user3, user4, user5, user6);
-            users.forEach(user -> user.setRegDate(LocalDateTime.now()));
+            users.forEach(user -> user.setRegDateTime(LocalDateTime.now()));
 
             ExampleDataGenerator<CarPass> carPassGenerator = new ExampleDataGenerator<>(CarPass.class,
                     LocalDateTime.now());
             carPassGenerator.setData(CarPass::setRegNum, DataType.IBAN);
             carPassGenerator.setData(CarPass::setArrivalDate, DataType.DATE_NEXT_7_DAYS);
-            carPassGenerator.setData(CarPass::setRegDataTime, DataType.DATETIME_LAST_7_DAYS);
+            carPassGenerator.setData(CarPass::setRegDateTime, DataType.DATETIME_LAST_7_DAYS);
 
             List<CarPass> carPasses = carPassGenerator.create(50, seed);
             carPasses.forEach(itm -> itm.setRegNum(itm.getRegNum().replaceAll(" ", "").substring(0, 8)));

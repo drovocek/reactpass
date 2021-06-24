@@ -8,7 +8,7 @@ import "@vaadin/vaadin-icons";
 import './user-form-view';
 import {userFilterStore} from "Frontend/views/users/user-filter-store";
 import {GeneralRootView} from "Frontend/views/general/general-root-view";
-import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
+import User from "Frontend/generated/ru/volkov/getpass/data/to/UserTo";
 import {_dateTimeOptions, dateTimeRenderer} from "Frontend/util/formatterUtil";
 import {GridColumnElement, GridItemModel} from "@vaadin/vaadin-grid";
 

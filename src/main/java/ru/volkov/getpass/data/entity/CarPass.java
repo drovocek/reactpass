@@ -3,15 +3,12 @@ package ru.volkov.getpass.data.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Formula;
-import org.springframework.lang.Nullable;
 import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-public class CarPass extends AbstractEntity{
+public class CarPass extends AbstractEntity {
 
     private boolean passed;
 
@@ -29,9 +26,9 @@ public class CarPass extends AbstractEntity{
     private LocalDate arrivalDate;
 
     @NotNull
-    private LocalDateTime regDataTime;
+    private LocalDateTime regDateTime;
 
-    private LocalDateTime passedDataTime;
+    private LocalDateTime passedDateTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User creator;
@@ -39,24 +36,11 @@ public class CarPass extends AbstractEntity{
     @ManyToOne(fetch = FetchType.EAGER)
     private User company;
 
-//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = creator.id)")
-//    private String creatorName;
-//
-//    @Formula("(SELECT u.full_name FROM User u WHERE u.id = company.id)")
-//    private String companyName;
-
-    public CarPass(@Nullable String regNum, LocalDate arrivalDate, LocalDateTime regDataTime) {
+    public CarPass(String regNum, LocalDate arrivalDate, LocalDateTime regDateTime) {
         this.regNum = regNum;
         this.arrivalDate = arrivalDate;
-        this.regDataTime = regDataTime;
+        this.regDateTime = regDateTime;
     }
-//
-//    public CarPass(Integer rootId, String regNum, LocalDate arrivalDate) {
-//        this.rootId = rootId;
-//        this.regNum = regNum;
-//        this.arrivalDate = arrivalDate;
-//    }
-
 
     @Override
     public String toString() {
@@ -64,10 +48,10 @@ public class CarPass extends AbstractEntity{
                 "passed=" + passed +
                 ", regNum='" + regNum + '\'' +
                 ", arrivalDate=" + arrivalDate +
-                ", regDataTime=" + regDataTime +
-                ", passedDataTime=" + passedDataTime +
-                ", creator=" + creator.getId() +
-                ", company=" + company.getId() +
+                ", regDataTime=" + regDateTime +
+                ", passedDataTime=" + passedDateTime +
+                ", creatorId=" + creator.getId() +
+                ", companyId=" + company.getId() +
                 '}';
     }
 }

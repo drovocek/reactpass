@@ -5,9 +5,9 @@ import '@vaadin/vaadin-button';
 import {Binder, field} from 'Frontend/../target/flow-frontend/form';
 import {userFilterStore} from './user-filter-store';
 import {uiStore, usersStore} from 'Frontend/stores/app-store';
-import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
+import UserModel from "Frontend/generated/ru/volkov/getpass/data/to/UserToModel";
 import {GeneralFormView} from "Frontend/views/general/general-form-view";
-import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
+import User from "Frontend/generated/ru/volkov/getpass/data/to/UserTo";
 
 @customElement('user-form-view')
 export class UserFormView extends GeneralFormView<User> {

@@ -14,8 +14,8 @@ public class CarPassToUtil {
         entity.setPassed(to.isPassed());
         entity.setRegNum(to.getRegNum());
         entity.setArrivalDate(to.getArrivalDate());
-        entity.setPassedDataTime(to.getPassedDataTime());
-        entity.setRegDataTime(to.getRegDataTime());
+        entity.setPassedDateTime(to.getPassedDataTime());
+        entity.setRegDateTime(to.getRegDateTime());
         return entity;
     }
 
@@ -25,8 +25,8 @@ public class CarPassToUtil {
         to.setPassed(entity.isPassed());
         to.setRegNum(entity.getRegNum());
         to.setArrivalDate(entity.getArrivalDate());
-        to.setPassedDataTime(entity.getPassedDataTime());
-        to.setRegDataTime(entity.getRegDataTime());
+        to.setPassedDataTime(entity.getPassedDateTime());
+        to.setRegDateTime(entity.getRegDateTime());
         to.setCreatorName(Optional.ofNullable(entity.getCreator()).map(User::getFullName).orElse(null));
         to.setCompanyName(Optional.ofNullable(entity.getCompany()).map(User::getFullName).orElse(null));
         return to;

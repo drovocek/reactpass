@@ -1,5 +1,5 @@
-import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
-import UserModel from "Frontend/generated/ru/volkov/getpass/data/entity/UserModel";
+import User from "Frontend/generated/ru/volkov/getpass/data/to/UserTo";
+import UserModel from "Frontend/generated/ru/volkov/getpass/data/to/UserToModel";
 import {usersStore} from 'Frontend/stores/app-store';
 import {GeneralFilterStore} from "Frontend/views/general/general-filter-store";
 import UserData from "Frontend/generated/ru/volkov/getpass/data/endpoint/UserEndpoint/UserData";

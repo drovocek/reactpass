@@ -1,4 +1,4 @@
-import User from "Frontend/generated/ru/volkov/getpass/data/entity/User";
+import User from "Frontend/generated/ru/volkov/getpass/data/to/UserTo";
 import UserData from "Frontend/generated/ru/volkov/getpass/data/endpoint/UserEndpoint/UserData";
 import * as endpoint from 'Frontend/generated/UserEndpoint';
 import UserDataModel from "Frontend/generated/ru/volkov/getpass/data/endpoint/UserEndpoint/UserDataModel";

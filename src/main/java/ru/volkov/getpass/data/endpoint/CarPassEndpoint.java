@@ -47,7 +47,10 @@ public class CarPassEndpoint {
         if (carPassTo.isNew()) {
             creatorProxy = userRepository.getOne(getAuthUserId());
             companyProxy = creatorProxy.getCompany();
-            carPass.setRegDataTime(LocalDateTime.now());
+            if (companyProxy == null) {
+                companyProxy = creatorProxy;
+            }
+            carPass.setRegDateTime(LocalDateTime.now());
         } else {
             CarPass carPassProxy = carPassRepository.getOne(carPassTo.getId());
             creatorProxy = carPassProxy.getCreator();

@@ -11,8 +11,11 @@ import ru.volkov.getpass.data.repository.UserRepository;
 import ru.volkov.getpass.data.to.UserTo;
 import ru.volkov.getpass.data.to.util.UserToUtil;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static ru.volkov.getpass.data.to.util.UserToUtil.asEntity;
@@ -46,6 +49,7 @@ public class UserEndpoint {
                 companyProxy = creatorProxy;
             }
             user.setRegDateTime(LocalDateTime.now());
+            user.setUserName(generateUserName());
         } else {
             User userProxy = userRepository.getOne(userTo.getId());
             creatorProxy = userProxy.getCreator();
@@ -53,9 +57,22 @@ public class UserEndpoint {
         }
         user.setCreator(creatorProxy);
         user.setCompany(companyProxy);
+        user.setLastActivity(LocalDateTime.now());
 
         User saved = userRepository.save(user);
         return asTo(saved);
+    }
+
+    private String generateUserName() {
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 7;
+        Random random = new Random();
+
+        return random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
     }
 
     public void deleteUser(Integer userId) {

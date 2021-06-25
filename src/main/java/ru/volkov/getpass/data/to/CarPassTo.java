@@ -33,5 +33,5 @@ public class CarPassTo extends AbstractEntity {
     private LocalDateTime regDateTime;
 
     @Nullable
-    private LocalDateTime passedDataTime;
+    private LocalDateTime transitDateTime;
 }

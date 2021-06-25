@@ -3,8 +3,8 @@ import {CarPassFilterStore} from "Frontend/views/carPass/car-pass-filter-store";
 
 class MeetFilterStore extends CarPassFilterStore {
 
-    changeEnable(id: number) {
-        return carPassStore.changeEnable(id);
+    changeTransitStatus(id: number) {
+        return carPassStore.changeTransitStatus(id);
     }
 }
 

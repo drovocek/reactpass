@@ -61,7 +61,7 @@ export class CarPassView extends GeneralRootView<CarPass> {
                      </vaadin-grid-sort-column>
                      <vaadin-grid-sort-column path="regDataTime" auto-width resizable>
                      </vaadin-grid-sort-column>
-                     <vaadin-grid-sort-column path="passedDataTime" auto-width resizable>
+                     <vaadin-grid-sort-column path="transitDateTime" auto-width resizable>
                      </vaadin-grid-sort-column>
                  </vaadin-grid>
                   <car-pass-form-view 
@@ -79,11 +79,11 @@ export class CarPassView extends GeneralRootView<CarPass> {
             };
 
             this._columns[6].renderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => {
-                dateTimeRenderer(root, model, 'regDataTime', _dateTimeOptions);
+                dateTimeRenderer(root, model, 'regDateTime', _dateTimeOptions);
             };
 
             this._columns[7].renderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => {
-                dateTimeRenderer(root, model, 'passedDataTime', _dateTimeOptions);
+                dateTimeRenderer(root, model, 'transitDateTime', _dateTimeOptions);
             };
         }
     }

@@ -28,13 +28,16 @@ public class CarPass extends AbstractEntity {
     @NotNull
     private LocalDateTime regDateTime;
 
-    private LocalDateTime passedDateTime;
+    private LocalDateTime transitDateTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User creator;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User company;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User responsibleForTransit;
 
     public CarPass(String regNum, LocalDate arrivalDate, LocalDateTime regDateTime) {
         this.regNum = regNum;
@@ -49,9 +52,10 @@ public class CarPass extends AbstractEntity {
                 ", regNum='" + regNum + '\'' +
                 ", arrivalDate=" + arrivalDate +
                 ", regDataTime=" + regDateTime +
-                ", passedDataTime=" + passedDateTime +
+                ", transitDateTime=" + transitDateTime +
                 ", creatorId=" + creator.getId() +
                 ", companyId=" + company.getId() +
+                ", responsibleForTransitId=" + responsibleForTransit.getId() +
                 '}';
     }
 }

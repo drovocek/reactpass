@@ -61,9 +61,13 @@ export class UserView extends GeneralRootView<User> {
                      </vaadin-grid-sort-column>
                      <vaadin-grid-sort-column path="phone" auto-width resizable>
                      </vaadin-grid-sort-column>
-                     <vaadin-grid-sort-column path="regDate" auto-width resizable>
+                     <vaadin-grid-sort-column path="regDateTime" auto-width resizable>
                      </vaadin-grid-sort-column>
                      <vaadin-grid-sort-column path="lastActivity" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="creatorName" auto-width resizable>
+                     </vaadin-grid-sort-column>
+                     <vaadin-grid-sort-column path="companyName" auto-width resizable>
                      </vaadin-grid-sort-column>
                  </vaadin-grid>
                  <user-form-view 
@@ -77,7 +81,7 @@ export class UserView extends GeneralRootView<User> {
     firstUpdated() {
         if (this._columns !== undefined) {
             this._columns[7].renderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => {
-                dateTimeRenderer(root, model, 'regDate');
+                dateTimeRenderer(root, model, 'regDateTime');
             };
             this._columns[8].renderer = (root: HTMLElement, column?: GridColumnElement, model?: GridItemModel) => {
                 dateTimeRenderer(root, model, 'lastActivity', _dateTimeOptions);

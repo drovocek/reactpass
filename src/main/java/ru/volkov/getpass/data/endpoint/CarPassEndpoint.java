@@ -68,14 +68,18 @@ public class CarPassEndpoint {
     }
 
     @Transactional
-    public Integer changeEnable(Integer carPassId) {
+    public CarPassTo changeTransitStatus(Integer carPassId) {
         Optional<CarPass> byId = carPassRepository.findById(carPassId);
         if (byId.isEmpty()) {
-            return null;
+            throw new RuntimeException("Not found by id");
         } else {
             CarPass carPass = byId.get();
             carPass.setPassed(!carPass.isPassed());
-            return carPass.getId();
+            LocalDateTime transitDateTime = carPass.getTransitDateTime();
+            carPass.setTransitDateTime(transitDateTime == null ? LocalDateTime.now() : null);
+            User responsibleForTransitProxy = userRepository.getOne(getAuthUserId());
+            carPass.setResponsibleForTransit(responsibleForTransitProxy);
+            return asTo(carPass);
         }
     }
 

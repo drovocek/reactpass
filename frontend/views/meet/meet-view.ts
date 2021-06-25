@@ -76,7 +76,7 @@ export class MeetView extends View {
 
     private handleSwipe(e: CustomEvent): void {
         const targetCheckbox = e.detail.target.querySelector('vaadin-checkbox');
-        MeetView.changeEnable(targetCheckbox.id).then(() => {
+        MeetView.changeTransitStatus(targetCheckbox.id).then(() => {
             const updated = meetFilterStore
                 .filtered
                 .find(itm => itm.id === Number.parseInt(targetCheckbox.id));
@@ -123,8 +123,8 @@ export class MeetView extends View {
         }
     }
 
-    private static changeEnable(id: number): Promise<void> {
-        return meetFilterStore.changeEnable(id);
+    private static changeTransitStatus(id: number): Promise<void> {
+        return meetFilterStore.changeTransitStatus(id);
     }
 
     connectedCallback() {

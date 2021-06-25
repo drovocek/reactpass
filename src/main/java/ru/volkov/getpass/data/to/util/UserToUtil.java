@@ -5,6 +5,8 @@ import ru.volkov.getpass.data.entity.User;
 import ru.volkov.getpass.data.to.CarPassTo;
 import ru.volkov.getpass.data.to.UserTo;
 
+import java.util.Optional;
+
 public class UserToUtil {
 
     public static User asEntity(UserTo to) {
@@ -32,6 +34,8 @@ public class UserToUtil {
         to.setEnabled(entity.isEnabled());
         to.setRegDateTime(entity.getRegDateTime());
         to.setLastActivity(entity.getLastActivity());
+        to.setCreatorName(Optional.ofNullable(entity.getCreator()).map(User::getFullName).orElse("-"));
+        to.setCompanyName(Optional.ofNullable(entity.getCompany()).map(User::getFullName).orElse("-"));
         return to;
     }
 }

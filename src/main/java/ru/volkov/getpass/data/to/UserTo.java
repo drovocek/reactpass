@@ -34,10 +34,10 @@ public class UserTo extends AbstractEntity {
 
     private boolean enabled;
 
-    @NotNull
+    @Nullable
     private LocalDateTime regDateTime;
 
-    @NotNull
+    @Nullable
     private LocalDateTime lastActivity;
 
     @Nullable

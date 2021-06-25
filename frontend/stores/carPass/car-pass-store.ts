@@ -46,23 +46,13 @@ export class CarPassStore implements EntityRootStore<CarPass> {
         return this.baseStore.gridData;
     }
 
-    async changeEnable(id: number): Promise<void> {
+    async changeTransitStatus(id: number) {
         try {
-            this.changeEnableLocal(await endpoint.changeEnable(id));
+            this.baseStore.saveLocal(await endpoint.changeTransitStatus(id));
             uiStore.showSuccess("Update.");
         } catch (e) {
             console.log(e);
             uiStore.showError("Update failed.");
         }
-    }
-
-    private changeEnableLocal(id: number) {
-        this.gridData = this.baseStore.gridData.map(itm => {
-            if (itm.id === id) {
-                itm.passed = !itm.passed;
-                return itm;
-            }
-            return itm;
-        });
     }
 }

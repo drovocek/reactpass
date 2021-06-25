@@ -46,7 +46,7 @@ export class BaseRootStore<T extends AbstractEntity, D> {
         }
     }
 
-    private saveLocal(saved: T) {
+    saveLocal(saved: T) {
         const contactExists = this.gridData.some((c) => c.id === saved.id);
         if (contactExists) {
             this.gridData = this.gridData.map((existing) => {

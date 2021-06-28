@@ -55,7 +55,7 @@ export class UserView extends GeneralRootView<User> {
                      </vaadin-grid-sort-column>
                      <vaadin-grid-sort-column path="fullName" auto-width resizable> 
                      </vaadin-grid-sort-column>
-                     <vaadin-grid-sort-column path="userName" auto-width resizable>
+                     <vaadin-grid-sort-column path="username" auto-width resizable>
                      </vaadin-grid-sort-column>
                      <vaadin-grid-sort-column path="email" auto-width resizable>
                      </vaadin-grid-sort-column>

@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.volkov.getpass.data.AbstractEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -18,17 +16,18 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class User extends AbstractEntity {
 
     @NotNull
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @NotNull
     private String fullName;
 
     @NotNull
-    private String userName;
+    private String username;
 
     @Email
     @NotNull
@@ -59,56 +58,11 @@ public class User extends AbstractEntity {
 //    @Formula("(SELECT COUNT(*) FROM Car_Pass cp WHERE cp.creator.id = id)")
 //    private int passesCreatedCount;
 
-    public User(String fullName, String userName, String email, String phone) {
+    public User(String fullName, String username, String email, String phone) {
         this.fullName = fullName;
-        this.userName = userName;
+        this.username = username;
         this.email = email;
         this.phone = phone;
     }
-
-//    private Integer rootId;
-
-//    private String passwordSalt;
-//    private String passwordHash;
-//    private String activationCode;
-//
-//    public User(Integer rootId, String userName, String fullName, String rootName, String email, String phone, Role role, String password) {
-//        this.rootId = rootId;
-//        this.userName = userName;
-//        this.fullName = fullName;
-//        this.rootName = rootName;
-//        this.email = email;
-//        this.phone = phone;
-//        this.role = role;
-//        this.passwordSalt = RandomStringUtils.random(32);
-//        this.passwordHash = DigestUtils.sha1Hex(password.concat(passwordSalt));
-//        this.activationCode = RandomStringUtils.randomAlphanumeric(32);
-//    }
-//
-//    public boolean isValidPassword(String password) {
-//        return DigestUtils.sha1Hex(password.concat(passwordSalt)).equals(passwordHash);
-//    }
-
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id='" + getId() + '\'' +
-//                ", userName='" + userName + '\'' +
-//                ", fullName='" + fullName + '\'' +
-//                ", rootId=" + rootId +
-//                ", email='" + email + '\'' +
-//                ", phone='" + phone + '\'' +
-//                ", enabled=" + enabled +
-//                ", passwordSalt='" + passwordSalt + '\'' +
-//                ", passwordHash='" + passwordHash + '\'' +
-//                ", regDate=" + regDate +
-//                ", lastActivity=" + lastActivity +
-//                ", role=" + role +
-//                ", passCount=" + passCount +
-//                ", childrenCount=" + childrenCount +
-//                ", rootName='" + rootName + '\'' +
-//                ", activationCode='" + activationCode + '\'' +
-//                '}';
-//    }
 }
 

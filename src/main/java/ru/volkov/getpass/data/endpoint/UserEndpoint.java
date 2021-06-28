@@ -49,7 +49,7 @@ public class UserEndpoint {
                 companyProxy = creatorProxy;
             }
             user.setRegDateTime(LocalDateTime.now());
-            user.setUserName(generateUserName());
+            user.setUsername(generateUserName());
         } else {
             User userProxy = userRepository.getOne(userTo.getId());
             creatorProxy = userProxy.getCreator();

@@ -1,8 +1,7 @@
 package ru.volkov.getpass.data.to.util;
 
-import ru.volkov.getpass.data.entity.CarPass;
+import ru.volkov.getpass.data.entity.Role;
 import ru.volkov.getpass.data.entity.User;
-import ru.volkov.getpass.data.to.CarPassTo;
 import ru.volkov.getpass.data.to.UserTo;
 
 import java.util.Optional;
@@ -12,10 +11,10 @@ public class UserToUtil {
     public static User asEntity(UserTo to) {
         User entity = new User();
         entity.setId(to.getId());
-        entity.setRole(to.getRole());
+        entity.setRole(Role.valueOf(to.getRole()));
         entity.setPhone(to.getPhone());
         entity.setFullName(to.getFullName());
-        entity.setUserName(to.getUserName());
+        entity.setUsername(to.getUserName());
         entity.setEmail(to.getEmail());
         entity.setEnabled(to.isEnabled());
         entity.setRegDateTime(to.getRegDateTime());
@@ -26,10 +25,10 @@ public class UserToUtil {
     public static UserTo asTo(User entity) {
         UserTo to = new UserTo();
         to.setId(entity.getId());
-        to.setRole(entity.getRole());
+        to.setRole(entity.getRole().name());
         to.setPhone(entity.getPhone());
         to.setFullName(entity.getFullName());
-        to.setUserName(entity.getUserName());
+        to.setUserName(entity.getUsername());
         to.setEmail(entity.getEmail());
         to.setEnabled(entity.isEnabled());
         to.setRegDateTime(entity.getRegDateTime());

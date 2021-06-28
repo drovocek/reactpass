@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class UserTo extends AbstractEntity {
 
     @NotNull
-    private Role role;
+    private String role;
 
     @NotNull
     private String fullName;

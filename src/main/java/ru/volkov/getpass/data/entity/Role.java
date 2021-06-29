@@ -1,47 +1,38 @@
 package ru.volkov.getpass.data.entity;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import ru.volkov.getpass.data.AbstractEntity;
 
+import javax.persistence.*;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import static ru.volkov.getpass.data.entity.Permission.*;
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "roles")
+public class Role extends AbstractEntity implements GrantedAuthority {
 
-public enum Role {
-    ADMIN(Set.of(
-            GET_ALL_USERS, GET_ALL_PASSES,
-            CREATE_COMPANY, CREATE_GUARD, CREATE_EMPLOYEE, CREATE_OWNER, CREATE_PASS,
-            UPDATE_COMPANY, UPDATE_GUARD, UPDATE_EMPLOYEE, UPDATE_OWNER, UPDATE_PASS)),
-    OWNER(Set.of(
-            GET_ALL_USERS, GET_ALL_PASSES,
-            CREATE_COMPANY, CREATE_GUARD, CREATE_EMPLOYEE, CREATE_PASS,
-            UPDATE_COMPANY, UPDATE_GUARD, UPDATE_EMPLOYEE, UPDATE_PASS)),
-    COMPANY(Set.of(
-            GET_ALL_CHILD_USERS, GET_ALL_CHILD_PASSES,
-            CREATE_GUARD, CREATE_EMPLOYEE, CREATE_PASS,
-            UPDATE_GUARD, UPDATE_EMPLOYEE, UPDATE_PASS)),
-    EMPLOYEE(Set.of(
-            GET_ALL_CHILD_PASSES,
-            CREATE_PASS,
-            UPDATE_EMPLOYEE, UPDATE_PASS)),
-    GUARD(Set.of(
-            GET_ALL_PASSES,
-            CREATE_PASS,
-            UPDATE_GUARD, UPDATE_PASS));
+    private String name;
 
-    private final Set<Permission> permissions;
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 
-    Role(Set<Permission> permissions) {
-        this.permissions = permissions;
+    public Role(Integer id) {
+        super(id);
     }
 
-    public Set<Permission> getPermissions() {
-        return permissions;
+    public Role(String name) {
+        this.name = name;
     }
 
-    public Set<SimpleGrantedAuthority> getAuthorities() {
-        return getPermissions().stream()
-                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
-                .collect(Collectors.toSet());
+    @Override
+    public String getAuthority() {
+        return getName();
     }
 }

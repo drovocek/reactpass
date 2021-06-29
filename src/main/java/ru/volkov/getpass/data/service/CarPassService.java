@@ -1,76 +1,71 @@
 package ru.volkov.getpass.data.service;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.vaadin.artur.helpers.CrudService;
-import ru.volkov.getpass.data.endpoint.CarPassEndpoint;
+import org.springframework.util.Assert;
 import ru.volkov.getpass.data.entity.CarPass;
+import ru.volkov.getpass.data.entity.User;
 import ru.volkov.getpass.data.repository.CarPassRepository;
-import ru.volkov.getpass.data.to.CarPassTo;
-import ru.volkov.getpass.data.to.util.CarPassToUtil;
+import ru.volkov.getpass.data.repository.UserRepository;
+import ru.volkov.getpass.util.exception.NotFoundException;
 
+import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static ru.volkov.getpass.data.to.util.CarPassToUtil.asEntity;
-import static ru.volkov.getpass.data.to.util.CarPassToUtil.asTo;
+import static ru.volkov.getpass.util.ValidationUtil.checkNotFoundWithId;
 
-@RequiredArgsConstructor
 @Service
-public class CarPassService extends CrudService<CarPass, Integer> {
+@RequiredArgsConstructor
+public class CarPassService {
 
-    private final CarPassRepository repository;
+    private final Principal principal;
+    private final CarPassRepository carPassRepository;
+    private final UserRepository userRepository;
 
-    @Override
-    protected JpaRepository<CarPass, Integer> getRepository() {
-        return repository;
-    }
-
-    public CarPassData getCarPassData() {
-        CarPassData carPassData = new CarPassData();
-        carPassData.carPasses =
-                repository.findAll().stream()
-                        .map(CarPassToUtil::asTo)
-                        .collect(Collectors.toList());
-        return carPassData;
+    @Transactional
+    public void update(CarPass carPass) {
+        Assert.notNull(carPass, "carPass must not be null");
+        CarPass carPassProxy = carPassRepository.getOne(carPass.getId());
+        User creatorProxy = carPassProxy.getCreator();
+        User companyProxy = carPassProxy.getCompany();
+        carPass.setCreator(creatorProxy);
+        carPass.setCompany(companyProxy);
+        carPassRepository.save(carPass);
     }
 
     @Transactional
-    public CarPassTo saveCarPass(CarPassTo carPassTo) {
-        CarPass carPass = asEntity(carPassTo);
-        if (carPassTo.isNew()) {
-
-        } else {
-            CarPass proxy = repository.getOne(carPassTo.getId());
-            carPass.setCreator(proxy.getCreator());
-            carPass.setCompany(proxy.getCompany());
+    public CarPass create(CarPass carPass) {
+        Assert.notNull(carPass, "carPass must not be null");
+        User creatorProxy = userRepository.getOne(getAuthUserId());
+        User companyProxy = creatorProxy.getCompany();
+        if (companyProxy == null) {
+            companyProxy = creatorProxy;
         }
-
-        return asTo(repository.save(carPass));
+        carPass.setRegDateTime(LocalDateTime.now());
+        carPass.setCreator(creatorProxy);
+        carPass.setCompany(companyProxy);
+        return carPassRepository.save(carPass);
     }
 
-    public void deleteCarPass(Integer carPassId) {
-        repository.deleteById(carPassId);
+    public void delete(int id) {
+        checkNotFoundWithId(carPassRepository.delete(id) != 0, id);
     }
 
     @Transactional
-    public Integer changeEnable(Integer carPassId) {
-        Optional<CarPass> byId = repository.findById(carPassId);
-        if (byId.isEmpty()) {
-            return null;
-        } else {
-            CarPass carPass = byId.get();
-            carPass.setPassed(!carPass.isPassed());
-            return carPass.getId();
-        }
+    public void changeEnable(int id) {
+        CarPass carPass = carPassRepository.findById(id).orElse(()->);
     }
 
-    @Getter
-    public static class CarPassData {
-        private List<CarPassTo> carPasses;
+    public List<CarPass> getAll() {
+        return carPassRepository.findAll();
+    }
+
+    private Integer getAuthUserId() {
+        User authUser = userRepository
+                .getUserByUsername(principal.getName())
+                .orElseThrow(() -> new NotFoundException("No authenticated user"));
+        return authUser.getId();
     }
 }

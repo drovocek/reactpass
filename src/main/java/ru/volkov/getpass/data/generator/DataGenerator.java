@@ -60,9 +60,9 @@ public class DataGenerator {
 
             contactRepository.saveAll(contacts);
 
-//            List<Role> roles = roleRepository
-//                    .saveAll(Stream.of("Owner", "Guard", "Company", "Employee")
-//                            .map(Role::new).collect(Collectors.toList()));
+            List<Role> roles = roleRepository
+                    .saveAll(Stream.of("Owner", "Guard", "Company", "Employee")
+                            .map(Role::new).collect(Collectors.toList()));
 
             User user1 = new User("OOO OWNER", "owner", "owner@email.ru", "+7 (777) 777-77-77");
             User user2 = new User("Guard Vasia", "guard", "guard@email.ru", "+6 (666) 666-66-66");
@@ -120,12 +120,12 @@ public class DataGenerator {
                 cp.setCreator(user2);
             });
 
-            users.get(0).setRole(Role.OWNER);
-            users.get(1).setRole(Role.GUARD);
-            users.get(2).setRole(Role.COMPANY);
-            users.get(3).setRole(Role.COMPANY);
-            users.get(4).setRole(Role.EMPLOYEE);
-            users.get(5).setRole(Role.EMPLOYEE);
+            users.get(0).setRole(roles.get(0));
+            users.get(1).setRole(roles.get(1));
+            users.get(2).setRole(roles.get(2));
+            users.get(3).setRole(roles.get(2));
+            users.get(4).setRole(roles.get(3));
+            users.get(5).setRole(roles.get(3));
 
             userRepository.saveAll(users);
             carPassRepository.saveAll(carPasses);

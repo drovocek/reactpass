@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 
 import static ru.volkov.getpass.data.to.util.CarPassToUtil.asEntity;
 import static ru.volkov.getpass.data.to.util.CarPassToUtil.asTo;
-import static ru.volkov.getpass.security.util.SecurityInformer.getAuthUserId;
 
 @Slf4j
 @RequiredArgsConstructor

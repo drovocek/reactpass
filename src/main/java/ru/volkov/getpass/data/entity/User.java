@@ -4,12 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
 
 @AllArgsConstructor
 @Getter
@@ -17,11 +21,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User extends AbstractEntity {
+public class User extends AbstractEntity implements UserDetails {
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     @NotNull
     private String fullName;
@@ -63,6 +67,26 @@ public class User extends AbstractEntity {
         this.username = username;
         this.email = email;
         this.phone = phone;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return isEnabled();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isEnabled();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isEnabled();
     }
 }
 

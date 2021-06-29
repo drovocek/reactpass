@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @ToString
 @AllArgsConstructor
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 public class UserTo extends AbstractEntity {
 
     @NotNull
-    private String role;
+    private Set<Role> roles;
 
     @NotNull
     private String fullName;

@@ -11,7 +11,7 @@ public class UserToUtil {
     public static User asEntity(UserTo to) {
         User entity = new User();
         entity.setId(to.getId());
-        entity.setRole(Role.valueOf(to.getRole()));
+        entity.setRoles(to.getRoles());
         entity.setPhone(to.getPhone());
         entity.setFullName(to.getFullName());
         entity.setUsername(to.getUserName());
@@ -25,7 +25,7 @@ public class UserToUtil {
     public static UserTo asTo(User entity) {
         UserTo to = new UserTo();
         to.setId(entity.getId());
-        to.setRole(entity.getRole().name());
+        to.setRoles(entity.getRoles());
         to.setPhone(entity.getPhone());
         to.setFullName(entity.getFullName());
         to.setUserName(entity.getUsername());

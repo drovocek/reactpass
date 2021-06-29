@@ -1,6 +1,7 @@
 package ru.volkov.getpass.data;
 
 import org.springframework.data.domain.Persistable;
+import org.springframework.util.Assert;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,7 +13,14 @@ public abstract class AbstractEntity implements Serializable, Persistable<Intege
 
     @Id
     @GeneratedValue
-    private Integer id;
+    protected Integer id;
+
+    public AbstractEntity() {
+    }
+
+    public AbstractEntity(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
@@ -46,5 +54,10 @@ public abstract class AbstractEntity implements Serializable, Persistable<Intege
     @Override
     public boolean isNew() {
         return id == null;
+    }
+
+    public int id() {
+        Assert.notNull(getId(), "Entity must has id");
+        return getId();
     }
 }

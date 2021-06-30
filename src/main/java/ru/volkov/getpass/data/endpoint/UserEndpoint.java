@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.volkov.getpass.data.entity.Role;
 import ru.volkov.getpass.data.repository.RoleRepository;
+import ru.volkov.getpass.data.service.UserService;
 import ru.volkov.getpass.data.to.UserTo;
 import ru.volkov.getpass.data.to.util.UserToUtil;
-import ru.volkov.getpass.data.service.UserService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,14 +32,17 @@ public class UserEndpoint {
     }
 
     public UserTo saveUser(UserTo to) {
+        log.info(to.toString());
         return asTo(asEntity(to));
     }
 
     public void updateUser(UserTo to) {
+        log.info(to.toString());
         userService.update(asEntity(to));
     }
 
     public void deleteUser(int id) {
+        log.info(String.valueOf(id));
         userService.delete(id);
     }
 

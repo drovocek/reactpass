@@ -25,28 +25,28 @@ public class CarPassService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void update(CarPass carPass) {
-        Assert.notNull(carPass, "carPass must not be null");
-        CarPass carPassProxy = carPassRepository.getOne(carPass.getId());
+    public void update(CarPass entity) {
+        Assert.notNull(entity, "CarPass must not be null");
+        CarPass carPassProxy = carPassRepository.getOne(entity.getId());
         User creatorProxy = carPassProxy.getCreator();
         User companyProxy = carPassProxy.getCompany();
-        carPass.setCreator(creatorProxy);
-        carPass.setCompany(companyProxy);
-        carPassRepository.save(carPass);
+        entity.setCreator(creatorProxy);
+        entity.setCompany(companyProxy);
+        carPassRepository.save(entity);
     }
 
     @Transactional
-    public CarPass create(CarPass carPass) {
-        Assert.notNull(carPass, "carPass must not be null");
+    public CarPass create(CarPass entity) {
+        Assert.notNull(entity, "CarPass must not be null");
         User creatorProxy = userRepository.getOne(getAuthUserId());
         User companyProxy = creatorProxy.getCompany();
         if (companyProxy == null) {
             companyProxy = creatorProxy;
         }
-        carPass.setRegDateTime(LocalDateTime.now());
-        carPass.setCreator(creatorProxy);
-        carPass.setCompany(companyProxy);
-        return carPassRepository.save(carPass);
+        entity.setRegDateTime(LocalDateTime.now());
+        entity.setCreator(creatorProxy);
+        entity.setCompany(companyProxy);
+        return carPassRepository.save(entity);
     }
 
     public void delete(int id) {
@@ -55,7 +55,13 @@ public class CarPassService {
 
     @Transactional
     public void changeEnable(int id) {
-        CarPass carPass = carPassRepository.findById(id).orElse(()->);
+        CarPass carPass = carPassRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("CarPass with id='%s' doesn't exist", id)));
+        carPass.setPassed(!carPass.isPassed());
+        carPass.setTransitDateTime(carPass.getTransitDateTime() == null ? LocalDateTime.now() : null);
+        User responsibleForTransitProxy = userRepository.getOne(getAuthUserId());
+        carPass.setResponsibleForTransit(responsibleForTransitProxy);
     }
 
     public List<CarPass> getAll() {

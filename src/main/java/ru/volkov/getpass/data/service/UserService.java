@@ -8,14 +8,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import ru.volkov.getpass.data.entity.CarPass;
 import ru.volkov.getpass.data.entity.User;
 import ru.volkov.getpass.data.repository.UserRepository;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static ru.volkov.getpass.util.ValidationUtil.checkNotFoundWithId;
 
@@ -29,7 +27,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void update(User user) {
-        Assert.notNull(user, "user must not be null");
+        Assert.notNull(user, "User must not be null");
         User userProxy = repository.getOne(user.getId());
         User creatorProxy = userProxy.getCreator();
         User companyProxy = userProxy.getCompany();
@@ -41,19 +39,19 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User create(User user) {
-        Assert.notNull(user, "user must not be null");
+    public User create(User entity) {
+        Assert.notNull(entity, "User must not be null");
         User creatorProxy = repository.getOne(getAuthUserId());
         User companyProxy = creatorProxy.getCompany();
         if (companyProxy == null) {
             companyProxy = creatorProxy;
         }
-        user.setRegDateTime(LocalDateTime.now());
-        user.setCreator(creatorProxy);
-        user.setCompany(companyProxy);
-        user.setLastActivity(LocalDateTime.now());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return repository.save(user);
+        entity.setRegDateTime(LocalDateTime.now());
+        entity.setCreator(creatorProxy);
+        entity.setCompany(companyProxy);
+        entity.setLastActivity(LocalDateTime.now());
+        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+        return repository.save(entity);
     }
 
     public void delete(int id) {

@@ -4,7 +4,8 @@ import {makeAutoObservable, observable} from "mobx";
 
 export class BaseRootStore<T extends AbstractEntity, D> {
 
-    public constructor(protected saveFunction: (a: T) => Promise<T>,
+    public constructor(protected createFunction: (a: T) => Promise<T>,
+                       protected updateFunction: (a: T) => void,
                        protected deleteByIdFunction: (a: number) => void,
                        public initFromServerFunction: () => Promise<void>,
                        public gridData: T[]) {
@@ -24,13 +25,19 @@ export class BaseRootStore<T extends AbstractEntity, D> {
         this.initFromServerFunction();
     }
 
-    async save(saved: T) {
+    async save(save: T) {
+        const isNew = (save.id === undefined) || (save.id === null);
         try {
-            this.saveLocal(await this.saveFunction(saved));
-            uiStore.showSuccess("Saved.");
+            if (isNew) {
+                this.saveLocal(await this.createFunction(save));
+            } else {
+                await this.updateFunction(save);
+                this.saveLocal(save);
+            }
+            uiStore.showSuccess(isNew ? "Created." : "Updated.");
         } catch (e) {
             console.log(e);
-            uiStore.showError("Save failed.");
+            uiStore.showError(isNew ? "Create failed." : "Update failed.");
         }
     }
 

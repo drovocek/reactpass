@@ -18,13 +18,16 @@ import java.util.Set;
 public class UserTo extends AbstractEntity {
 
     @NotNull
-    private Set<Role> roles;
+    private Role role;
+
+    @NotNull
+    private Set<String> authorities;
 
     @NotNull
     private String fullName;
 
     @Nullable
-    private String userName;
+    private String username;
 
     @Email
     @NotNull

@@ -12,9 +12,7 @@ import ru.volkov.getpass.data.entity.*;
 import ru.volkov.getpass.data.repository.*;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,7 +22,7 @@ public class DataGenerator {
     @Bean
     public CommandLineRunner loadData(PasswordEncoder passwordEncoder, ContactRepository contactRepository, CompanyRepository companyRepository,
                                       StatusRepository statusRepository, UserRepository userRepository, RoleRepository roleRepository,
-                                      CarPassRepository carPassRepository) {
+                                      CarPassRepository carPassRepository, AuthorityRepository authorityRepository) {
 
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
@@ -60,9 +58,19 @@ public class DataGenerator {
 
             contactRepository.saveAll(contacts);
 
-            List<Role> roles = roleRepository
-                    .saveAll(Stream.of("Owner", "Guard", "Company", "Employee")
-                            .map(Role::new).collect(Collectors.toList()));
+            List<Authority> authorities = authorityRepository
+                    .saveAll(Stream.of("create", "update", "delete", "getAll")
+                            .map(Authority::new).collect(Collectors.toList()));
+
+            List<Role> roles = Stream.of("Owner", "Guard", "Company", "Employee")
+                            .map(Role::new).collect(Collectors.toList());
+
+            roles.get(0).setAuthorities(Set.of(authorities.get(0),authorities.get(1),authorities.get(2),authorities.get(3)));
+            roles.get(1).setAuthorities(Set.of(authorities.get(1),authorities.get(3)));
+            roles.get(2).setAuthorities(Set.of(authorities.get(0),authorities.get(1),authorities.get(2),authorities.get(3)));
+            roles.get(3).setAuthorities(Set.of(authorities.get(1),authorities.get(3)));
+
+            roleRepository.saveAll(roles);
 
             User user1 = new User("OOO OWNER", "owner", "owner@email.ru", "+7 (777) 777-77-77");
             User user2 = new User("Guard Vasia", "guard", "guard@email.ru", "+6 (666) 666-66-66");

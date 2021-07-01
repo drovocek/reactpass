@@ -6,12 +6,14 @@ export class GeneralRootStore<T extends AbstractEntity, D> {
     private readonly generalStore: BaseRootStore<T, D>;
 
     public constructor(saveFunction: (a: T) => Promise<T>,
+                       updateFunction: (a: T) => void,
                        deleteByIdFunction: (a: number) => void,
                        initFromServerFunction: () => Promise<void>,
                        gridData: T[]) {
         this.generalStore =
             new BaseRootStore<T, D>(
                 saveFunction,
+                updateFunction,
                 deleteByIdFunction,
                 initFromServerFunction,
                 gridData);

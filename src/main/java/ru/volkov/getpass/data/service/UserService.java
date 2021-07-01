@@ -1,15 +1,15 @@
 package ru.volkov.getpass.data.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.volkov.getpass.data.entity.User;
 import ru.volkov.getpass.data.repository.UserRepository;
+import ru.volkov.getpass.util.exception.NotFoundException;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -19,9 +19,8 @@ import static ru.volkov.getpass.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserService {
 
-    private final Principal principal;
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
@@ -63,17 +62,10 @@ public class UserService implements UserDetailsService {
     }
 
     private Integer getAuthUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authUser = repository
-                .getUserByUsername(principal.getName())
-                .orElseThrow(() -> new RuntimeException("No authenticated user"));
+                .getUserByUsername(authentication.getName())
+                .orElseThrow(() -> new NotFoundException("No authenticated user"));
         return authUser.getId();
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Assert.notNull(username, "username must not be null");
-        return repository.getUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(
-                        String.format("Couldn't find user with username: '%s'", username)));
     }
 }

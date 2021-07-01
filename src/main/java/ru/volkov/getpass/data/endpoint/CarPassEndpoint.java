@@ -49,9 +49,9 @@ public class CarPassEndpoint {
     }
 
     @Transactional
-    public void changeTransitStatus(int id) {
+    public CarPassTo changeTransitStatus(int id) {
         log.info(String.valueOf(id));
-        service.changeEnable(id);
+        return asTo(service.changeTransitStatus(id));
     }
 
     @Getter

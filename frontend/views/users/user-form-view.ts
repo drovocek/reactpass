@@ -22,15 +22,15 @@ export class UserFormView extends GeneralFormView<User> {
         return html`
         <vaadin-combo-box
          label="Role"
-         .items="${usersStore.roles}"
+         .items="${usersStore.roles }"
          ?disabled="${uiStore.offline}"
          item-label-path="name"
          ...="${field(model.role)}"
        ></vaadin-combo-box>
        <vaadin-text-field
-         label="Full name"
+         label="Username"
          ?disabled="${uiStore.offline}"
-         ...="${field(model.fullName)}"
+         ...="${field(model.username)}"
        ></vaadin-text-field>
        <vaadin-text-field
          label="Email"
@@ -41,6 +41,11 @@ export class UserFormView extends GeneralFormView<User> {
          label="Phone"
          ?disabled="${uiStore.offline}"
          ...="${field(model.phone)}"
+       ></vaadin-text-field>
+       <vaadin-text-field
+         label="Full name"
+         ?disabled="${uiStore.offline}"
+         ...="${field(model.fullName)}"
        ></vaadin-text-field>
        <vaadin-checkbox
          title="Is Active"

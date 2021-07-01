@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
 import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -16,12 +16,15 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "roles")
-public class Role extends AbstractEntity implements GrantedAuthority {
+public class Role extends AbstractEntity {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
     private Set<User> users;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
+    private Set<Authority> authorities;
 
     public Role(Integer id) {
         super(id);
@@ -29,10 +32,5 @@ public class Role extends AbstractEntity implements GrantedAuthority {
 
     public Role(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String getAuthority() {
-        return getName();
     }
 }

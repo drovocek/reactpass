@@ -1,6 +1,8 @@
 package ru.volkov.getpass.data.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -10,7 +12,6 @@ import ru.volkov.getpass.data.repository.CarPassRepository;
 import ru.volkov.getpass.data.repository.UserRepository;
 import ru.volkov.getpass.util.exception.NotFoundException;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +21,6 @@ import static ru.volkov.getpass.util.ValidationUtil.checkNotFoundWithId;
 @RequiredArgsConstructor
 public class CarPassService {
 
-    private final Principal principal;
     private final CarPassRepository carPassRepository;
     private final UserRepository userRepository;
 
@@ -54,7 +54,7 @@ public class CarPassService {
     }
 
     @Transactional
-    public void changeEnable(int id) {
+    public CarPass changeTransitStatus(int id) {
         CarPass carPass = carPassRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("CarPass with id='%s' doesn't exist", id)));
@@ -62,6 +62,7 @@ public class CarPassService {
         carPass.setTransitDateTime(carPass.getTransitDateTime() == null ? LocalDateTime.now() : null);
         User responsibleForTransitProxy = userRepository.getOne(getAuthUserId());
         carPass.setResponsibleForTransit(responsibleForTransitProxy);
+        return carPass;
     }
 
     public List<CarPass> getAll() {
@@ -69,8 +70,9 @@ public class CarPassService {
     }
 
     private Integer getAuthUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authUser = userRepository
-                .getUserByUsername(principal.getName())
+                .getUserByUsername(authentication.getName())
                 .orElseThrow(() -> new NotFoundException("No authenticated user"));
         return authUser.getId();
     }

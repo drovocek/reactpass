@@ -1,20 +1,21 @@
 package ru.volkov.getpass.data.to.util;
 
-import ru.volkov.getpass.data.entity.Role;
+import ru.volkov.getpass.data.entity.Authority;
 import ru.volkov.getpass.data.entity.User;
 import ru.volkov.getpass.data.to.UserTo;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UserToUtil {
 
     public static User asEntity(UserTo to) {
         User entity = new User();
         entity.setId(to.getId());
-        entity.setRoles(to.getRoles());
+        entity.setRole(to.getRole());
         entity.setPhone(to.getPhone());
         entity.setFullName(to.getFullName());
-        entity.setUsername(to.getUserName());
+        entity.setUsername(to.getUsername());
         entity.setEmail(to.getEmail());
         entity.setEnabled(to.isEnabled());
         entity.setRegDateTime(to.getRegDateTime());
@@ -25,10 +26,13 @@ public class UserToUtil {
     public static UserTo asTo(User entity) {
         UserTo to = new UserTo();
         to.setId(entity.getId());
-        to.setRoles(entity.getRoles());
+        to.setRole(entity.getRole());
+        to.setAuthorities(entity.getRole().getAuthorities().stream()
+                .map(Authority::getAuthority)
+                .collect(Collectors.toSet()));
         to.setPhone(entity.getPhone());
         to.setFullName(entity.getFullName());
-        to.setUserName(entity.getUsername());
+        to.setUsername(entity.getUsername());
         to.setEmail(entity.getEmail());
         to.setEnabled(entity.isEnabled());
         to.setRegDateTime(entity.getRegDateTime());

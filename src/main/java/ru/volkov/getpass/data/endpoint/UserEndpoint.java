@@ -21,29 +21,30 @@ import static ru.volkov.getpass.data.to.util.UserToUtil.asTo;
 @Endpoint
 public class UserEndpoint {
 
-    private final UserService userService;
+    private final UserService service;
     private final RoleRepository roleRepository;
 
     public UserData getUsersData() {
         UserData userData = new UserData();
-        userData.users = userService.getAll().stream().map(UserToUtil::asTo).collect(Collectors.toList());
+        userData.users = service.getAll().stream().map(UserToUtil::asTo).collect(Collectors.toList());
         userData.roles = roleRepository.findAll();
+        userData.users.forEach(System.out::println);
         return userData;
     }
 
-    public UserTo saveUser(UserTo to) {
+    public UserTo createUser(UserTo to) {
         log.info(to.toString());
-        return asTo(asEntity(to));
+        return asTo(service.create(asEntity(to)));
     }
 
     public void updateUser(UserTo to) {
         log.info(to.toString());
-        userService.update(asEntity(to));
+        service.update(asEntity(to));
     }
 
     public void deleteUser(int id) {
         log.info(String.valueOf(id));
-        userService.delete(id);
+        service.delete(id);
     }
 
     @Getter

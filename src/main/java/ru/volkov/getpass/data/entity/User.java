@@ -8,12 +8,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.volkov.getpass.data.AbstractEntity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Set;
 
 @AllArgsConstructor
 @Getter
@@ -24,8 +26,8 @@ import java.util.Set;
 public class User extends AbstractEntity implements UserDetails {
 
     @NotNull
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Role role;
 
     @NotNull
     private String fullName;
@@ -71,7 +73,7 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return getRole().getAuthorities();
     }
 
     @Override

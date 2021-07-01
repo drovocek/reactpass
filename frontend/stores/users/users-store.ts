@@ -17,7 +17,8 @@ export class UsersStore implements EntityRootStore<User>{
     constructor() {
         this.baseStore =
             new BaseRootStore<User, UserData>(
-                endpoint.saveUser,
+                endpoint.createUser,
+                endpoint.updateUser,
                 endpoint.deleteUser,
                 this.initFromServer,
                 this.gridData);

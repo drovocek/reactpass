@@ -16,7 +16,8 @@ export class CarPassStore implements EntityRootStore<CarPass> {
     constructor() {
         this.baseStore =
             new BaseRootStore<CarPass, CarPassData>(
-                endpoint.saveCarPass,
+                endpoint.createCarPass,
+                endpoint.updateCarPass,
                 endpoint.deleteCarPass,
                 this.initFromServer,
                 this.gridData);

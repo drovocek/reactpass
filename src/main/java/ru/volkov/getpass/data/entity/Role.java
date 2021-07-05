@@ -1,13 +1,14 @@
 package ru.volkov.getpass.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -20,10 +21,18 @@ public class Role extends AbstractEntity {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-    private Set<User> users;
+//    @JsonIgnore
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+//    private Set<User> users;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, fetch = FetchType.EAGER)
+    @JoinTable(name = "role_authority",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id")
+    )
     private Set<Authority> authorities;
 
     public Role(Integer id) {

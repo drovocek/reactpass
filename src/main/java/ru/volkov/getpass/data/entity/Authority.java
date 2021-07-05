@@ -1,5 +1,6 @@
 package ru.volkov.getpass.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,8 @@ public class Authority extends AbstractEntity implements GrantedAuthority {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
     private List<Role> roles;
 
     public Authority(String name) {

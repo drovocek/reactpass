@@ -64,11 +64,12 @@ public class User extends AbstractEntity implements UserDetails {
 //    @Formula("(SELECT COUNT(*) FROM Car_Pass cp WHERE cp.creator.id = id)")
 //    private int passesCreatedCount;
 
-    public User(String fullName, String username, String email, String phone) {
+    public User(String fullName, String username, String email, String phone, LocalDateTime regDateTime) {
         this.fullName = fullName;
         this.username = username;
         this.email = email;
         this.phone = phone;
+        this.regDateTime = regDateTime;
     }
 
     @Override

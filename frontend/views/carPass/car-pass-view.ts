@@ -59,7 +59,7 @@ export class CarPassView extends GeneralRootView<CarPass> {
                      </vaadin-grid-sort-column>
                      <vaadin-grid-sort-column path="arrivalDate" auto-width resizable> 
                      </vaadin-grid-sort-column>
-                     <vaadin-grid-sort-column path="regDataTime" auto-width resizable>
+                     <vaadin-grid-sort-column path="regDateTime" auto-width resizable>
                      </vaadin-grid-sort-column>
                      <vaadin-grid-sort-column path="transitDateTime" auto-width resizable>
                      </vaadin-grid-sort-column>

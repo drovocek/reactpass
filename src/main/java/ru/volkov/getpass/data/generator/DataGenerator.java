@@ -12,7 +12,10 @@ import ru.volkov.getpass.data.entity.*;
 import ru.volkov.getpass.data.repository.*;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -58,26 +61,31 @@ public class DataGenerator {
 
             contactRepository.saveAll(contacts);
 
-            List<Authority> authorities = authorityRepository
-                    .saveAll(Stream.of("create", "update", "delete", "getAll")
-                            .map(Authority::new).collect(Collectors.toList()));
+//            List<Authority> authorities = authorityRepository
+//                    .saveAll(Stream.of("create", "update", "delete", "getAll")
+//                            .map(Authority::new).collect(Collectors.toList()));
+
+            List<Authority> authorities =
+                    Stream.of("create", "update", "delete", "getAll")
+                            .map(Authority::new).collect(Collectors.toList());
+
 
             List<Role> roles = Stream.of("Owner", "Guard", "Company", "Employee")
-                            .map(Role::new).collect(Collectors.toList());
+                    .map(Role::new).collect(Collectors.toList());
 
-            roles.get(0).setAuthorities(Set.of(authorities.get(0),authorities.get(1),authorities.get(2),authorities.get(3)));
-            roles.get(1).setAuthorities(Set.of(authorities.get(1),authorities.get(3)));
-            roles.get(2).setAuthorities(Set.of(authorities.get(0),authorities.get(1),authorities.get(2),authorities.get(3)));
-            roles.get(3).setAuthorities(Set.of(authorities.get(1),authorities.get(3)));
+            roles.get(0).setAuthorities(Set.of(authorities.get(0), authorities.get(1), authorities.get(2), authorities.get(3)));
+            roles.get(1).setAuthorities(Set.of(authorities.get(1), authorities.get(3)));
+            roles.get(2).setAuthorities(Set.of(authorities.get(0), authorities.get(1), authorities.get(2), authorities.get(3)));
+            roles.get(3).setAuthorities(Set.of(authorities.get(1), authorities.get(3)));
 
             roleRepository.saveAll(roles);
 
-            User user1 = new User("OOO OWNER", "owner", "owner@email.ru", "+7 (777) 777-77-77");
-            User user2 = new User("Guard Vasia", "guard", "guard@email.ru", "+6 (666) 666-66-66");
-            User user3 = new User("OOO COMPANY", "company", "company@email.ru", "+5 (555) 555-55-55");
-            User user4 = new User("OOO ROGA&COPITA", "rogacopita", "rogacopita@email.ru", "+8 (888) 888-88-88");
-            User user5 = new User("Employee Ivan", "employee", "employee@email.ru", "+4 (444) 444-44-44");
-            User user6 = new User("Anansky Andrey", "mhsn", "mhsn@email.ru", "+9 (999) 999-99-99");
+            User user1 = new User("OOO OWNER", "owner", "owner@email.ru", "+7 (777) 777-77-77", LocalDateTime.now());
+            User user2 = new User("Guard Vasia", "guard", "guard@email.ru", "+6 (666) 666-66-66", LocalDateTime.now());
+            User user3 = new User("OOO COMPANY", "company", "company@email.ru", "+5 (555) 555-55-55", LocalDateTime.now());
+            User user4 = new User("OOO ROGA&COPITA", "rogacopita", "rogacopita@email.ru", "+8 (888) 888-88-88", LocalDateTime.now());
+            User user5 = new User("Employee Ivan", "employee", "employee@email.ru", "+4 (444) 444-44-44", LocalDateTime.now());
+            User user6 = new User("Anansky Andrey", "mhsn", "mhsn@email.ru", "+9 (999) 999-99-99", LocalDateTime.now());
 
             user1.setCompany(null);
             user1.setCreator(null);

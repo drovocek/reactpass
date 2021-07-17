@@ -17,10 +17,10 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-@AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User extends AbstractEntity implements UserDetails {
@@ -50,7 +50,7 @@ public class User extends AbstractEntity implements UserDetails {
     private LocalDateTime regDateTime;
 
     @NotNull
-    private LocalDateTime lastActivity = LocalDateTime.now();
+    private LocalDateTime lastActivity;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User creator;

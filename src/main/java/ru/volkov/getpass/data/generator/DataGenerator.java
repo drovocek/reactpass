@@ -65,10 +65,6 @@ public class DataGenerator {
 //                    .saveAll(Stream.of("create", "update", "delete", "getAll")
 //                            .map(Authority::new).collect(Collectors.toList()));
 
-            List<Authority> authorities =
-                    Stream.of("create", "update", "delete", "getAll")
-                            .map(Authority::new).collect(Collectors.toList());
-
 
             List<Role> roles = Stream.of("Owner", "Guard", "Company", "Employee")
                     .map(Role::new).collect(Collectors.toList());
@@ -80,12 +76,6 @@ public class DataGenerator {
 
             roleRepository.saveAll(roles);
 
-            User user1 = new User("OOO OWNER", "owner", "owner@email.ru", "+7 (777) 777-77-77", LocalDateTime.now());
-            User user2 = new User("Guard Vasia", "guard", "guard@email.ru", "+6 (666) 666-66-66", LocalDateTime.now());
-            User user3 = new User("OOO COMPANY", "company", "company@email.ru", "+5 (555) 555-55-55", LocalDateTime.now());
-            User user4 = new User("OOO ROGA&COPITA", "rogacopita", "rogacopita@email.ru", "+8 (888) 888-88-88", LocalDateTime.now());
-            User user5 = new User("Employee Ivan", "employee", "employee@email.ru", "+4 (444) 444-44-44", LocalDateTime.now());
-            User user6 = new User("Anansky Andrey", "mhsn", "mhsn@email.ru", "+9 (999) 999-99-99", LocalDateTime.now());
 
             user1.setCompany(null);
             user1.setCreator(null);
@@ -148,5 +138,30 @@ public class DataGenerator {
 
             logger.info("Generated demo data");
         };
+    }
+
+    private void getMockUsers() {
+        User user1 = new User("OOO OWNER", "owner", "owner@email.ru", "+7 (777) 777-77-77", LocalDateTime.now());
+        User user2 = new User("Guard Vasia", "guard", "guard@email.ru", "+6 (666) 666-66-66", LocalDateTime.now());
+        User user3 = new User("OOO COMPANY", "company", "company@email.ru", "+5 (555) 555-55-55", LocalDateTime.now());
+        User user4 = new User("OOO ROGA&COPITA", "rogacopita", "rogacopita@email.ru", "+8 (888) 888-88-88", LocalDateTime.now());
+        User user5 = new User("Employee Ivan", "employee", "employee@email.ru", "+4 (444) 444-44-44", LocalDateTime.now());
+        User user6 = new User("Anansky Andrey", "mhsn", "mhsn@email.ru", "+9 (999) 999-99-99", LocalDateTime.now());
+
+
+    }
+
+    private void getMockRoles() {
+
+    }
+
+    private List<Authority> getMockAuthorities() {
+        return Stream.of(
+                "create",
+                "update",
+                "delete",
+                "getAll")
+                .map(Authority::new)
+                .collect(Collectors.toList());
     }
 }

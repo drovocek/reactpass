@@ -5,7 +5,7 @@ import '@vaadin/vaadin-combo-box';
 import '@vaadin/vaadin-button';
 import {Binder} from 'Frontend/../target/flow-frontend/form';
 import {uiStore} from 'Frontend/stores/app-store';
-import {AbstractModel, ModelConstructor} from "Frontend/../target/flow-frontend/form/Models";
+import {AbstractModel, ModelConstructor} from 'Frontend/../target/flow-frontend/form/Models';
 import AbstractEntity from "Frontend/generated/ru/volkov/getpass/data/AbstractEntity";
 import {EntityFilterStore} from "Frontend/views/general/entity-filter-store";
 

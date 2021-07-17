@@ -14,6 +14,8 @@ export class UserFormView extends GeneralFormView<User> {
 
     constructor() {
         super(UserModel, userFilterStore);
+        console.log("!!!!!!!!!")
+        usersStore.gridData.forEach(c=>console.log(c))
     }
 
     //html
@@ -22,9 +24,9 @@ export class UserFormView extends GeneralFormView<User> {
         return html`
         <vaadin-combo-box
          label="Role"
-         .items="${usersStore.roles }"
-         ?disabled="${uiStore.offline}"
          item-label-path="name"
+         .items="${usersStore.roles}"
+         ?disabled="${uiStore.offline}"
          ...="${field(model.role)}"
        ></vaadin-combo-box>
        <vaadin-text-field

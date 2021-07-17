@@ -6,8 +6,8 @@ Project base for Spring Boot and Vaadin Fusion
 
 :link: [**DEMO**](https://reactpass.herokuapp.com/)
 
-username: user;
-password: userpass, 
+username: owner;
+password: ownerpass, 
 
 ## Technology stack
 - Java 11

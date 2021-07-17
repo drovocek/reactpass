@@ -8,12 +8,14 @@ export class BaseRootStore<T extends AbstractEntity, D> {
                        protected updateFunction: (a: T) => void,
                        protected deleteByIdFunction: (a: number) => void,
                        public initFromServerFunction: () => Promise<void>,
-                       public gridData: T[]) {
+                       public gridData: T[],
+                       public otherData: any[]) {
         makeAutoObservable(
             this,
             {
                 initFromServer: false,
                 gridData: observable.shallow,
+                otherData: observable.shallow,
             },
             {autoBind: true}
         );

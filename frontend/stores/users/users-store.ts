@@ -8,7 +8,7 @@ import Role from "Frontend/generated/ru/volkov/getpass/data/entity/Role";
 import {BaseRootStore} from "Frontend/views/general/base-root-store";
 import {EntityRootStore} from "Frontend/views/general/entity-root-store";
 
-export class UsersStore implements EntityRootStore<User>{
+export class UsersStore implements EntityRootStore<User> {
 
     private readonly baseStore: BaseRootStore<User, UserData>;
     public gridData: User[] = [];
@@ -21,7 +21,8 @@ export class UsersStore implements EntityRootStore<User>{
                 endpoint.updateUser,
                 endpoint.deleteUser,
                 this.initFromServer,
-                this.gridData);
+                this.gridData,
+                this.roles);
     }
 
     async initFromServer() {

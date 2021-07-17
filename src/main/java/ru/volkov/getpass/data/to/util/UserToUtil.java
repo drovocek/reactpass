@@ -1,11 +1,9 @@
 package ru.volkov.getpass.data.to.util;
 
-import ru.volkov.getpass.data.entity.Authority;
 import ru.volkov.getpass.data.entity.User;
 import ru.volkov.getpass.data.to.UserTo;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class UserToUtil {
 
@@ -27,9 +25,6 @@ public class UserToUtil {
         UserTo to = new UserTo();
         to.setId(entity.getId());
         to.setRole(entity.getRole());
-        to.setAuthorities(entity.getRole().getAuthorities().stream()
-                .map(Authority::getAuthority)
-                .collect(Collectors.toSet()));
         to.setPhone(entity.getPhone());
         to.setFullName(entity.getFullName());
         to.setUsername(entity.getUsername());

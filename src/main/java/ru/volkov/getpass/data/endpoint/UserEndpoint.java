@@ -25,14 +25,9 @@ public class UserEndpoint {
     private final RoleRepository roleRepository;
 
     public UserData getUsersData() {
-        System.out.println("getUsersData()");
         UserData userData = new UserData();
         userData.users = service.getAll().stream().map(UserToUtil::asTo).collect(Collectors.toList());
         userData.roles = roleRepository.findAll();
-
-        userData.users.forEach(System.out::println);
-        userData.roles.forEach(r-> System.out.println(r.getAuthorities().size()));
-
         return userData;
     }
 

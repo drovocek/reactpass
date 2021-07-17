@@ -3,6 +3,8 @@ package ru.volkov.getpass.data.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import ru.volkov.getpass.data.AbstractEntity;
 
 import javax.persistence.Entity;

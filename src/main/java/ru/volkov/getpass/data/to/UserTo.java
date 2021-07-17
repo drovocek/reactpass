@@ -21,9 +21,6 @@ public class UserTo extends AbstractEntity {
     private Role role;
 
     @NotNull
-    private Set<String> authorities;
-
-    @NotNull
     private String fullName;
 
     @Nullable
